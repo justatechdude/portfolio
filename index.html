@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academic & Analytics Portfolio</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 font-sans antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-slate-900/90 backdrop-blur border-b border-slate-800 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#home" class="text-xl font-bold tracking-tight text-teal-400">Portfolio.</a>
+      
+      <!-- Desktop Links -->
+      <div class="hidden md:flex space-x-8 text-sm font-medium">
+        <a href="#home" class="hover:text-teal-400 transition-colors">Home</a>
+        <a href="#research" class="hover:text-teal-400 transition-colors">Research Topic</a>
+        <a href="#projects" class="hover:text-teal-400 transition-colors">Projects</a>
+        <a href="#contact" class="hover:text-teal-400 transition-colors">Contact</a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden text-slate-300 hover:text-white focus:outline-none">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-800 px-4 pt-2 pb-4 space-y-2">
+      <a href="#home" class="block py-2 text-slate-300 hover:text-teal-400">Home</a>
+      <a href="#research" class="block py-2 text-slate-300 hover:text-teal-400">Research Topic</a>
+      <a href="#projects" class="block py-2 text-slate-300 hover:text-teal-400">Projects</a>
+      <a href="#contact" class="block py-2 text-slate-300 hover:text-teal-400">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Hero / Landing Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4">
+    <div class="max-w-4xl text-center space-y-6">
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+        Data-Driven Insights & <span class="text-teal-400">Web Development</span>
+      </h1>
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto">
+        Building functional web applications and researching predictive machine learning models to solve real-world problems.
+      </p>
+      <div class="flex justify-center gap-4 pt-4">
+        <a href="#projects" class="px-6 py-3 bg-teal-500 text-slate-950 font-semibold rounded-lg hover:bg-teal-400 transition-colors">
+          View Work
+        </a>
+        <a href="#contact" class="px-6 py-3 border border-slate-700 rounded-lg hover:border-slate-500 transition-colors">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Topic Summary Section -->
+  <section id="research" class="py-20 bg-slate-800/50">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-8 text-center">Featured Research Proposal</h2>
+      <div class="bg-slate-800 p-8 rounded-xl border border-slate-700">
+        <span class="text-xs uppercase tracking-widest text-teal-400 font-semibold">Educational Data Mining</span>
+        <h3 class="text-2xl font-bold mt-2 mb-4">Predicting Student Academic Performance & Attrition Risks</h3>
+        <p class="text-slate-300 mb-6">
+          This research focuses on using classification models on higher education datasets to pinpoint key early warning indicators of student dropout. By evaluating academic performance, financial status, and demographic variables, the goal is to build an intervention framework for academic advisors.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4 text-sm text-slate-400">
+          <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-700/50">
+            <strong class="text-slate-200 block mb-1">Primary Question:</strong>
+            How accurately can ML models predict dropout risk using early academic and financial metrics?
+          </div>
+          <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-700/50">
+            <strong class="text-slate-200 block mb-1">Target Variable:</strong>
+            Student Status (Enrolled, Graduated, Dropped Out)
+          </div>
+          <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-700/50">
+            <strong class="text-slate-200 block mb-1">Key Predictors:</strong>
+            First-term GPA, Tuition Standing, Credit Completion Ratio
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20">
+    <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-12 text-center">Recent Projects</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        
+        <!-- Project 1 -->
+        <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 flex flex-col">
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Student Retention Model</h3>
+              <p class="text-slate-400 text-sm mb-4">
+                Machine learning pipeline developed in Python to evaluate Kaggle institutional datasets for dropout risk.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">Python</span>
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">Scikit-Learn</span>
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">Pandas</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 flex flex-col">
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">Employee Dashboard</h3>
+              <p class="text-slate-400 text-sm mb-4">
+                Full-stack web application designed for dynamic user record updating, relational database transactions, and tracking.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">PHP</span>
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">MySQL</span>
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 flex flex-col">
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-bold mb-2">UI Interface Tracker</h3>
+              <p class="text-slate-400 text-sm mb-4">
+                Human-computer interaction study analyzing user interface friction and task completion performance.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">HCI Research</span>
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">Prototyping</span>
+              <span class="px-2 py-1 bg-slate-700 text-xs rounded text-teal-300">UX Design</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20 bg-slate-800/50">
+    <div class="max-w-xl mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-4 text-center">Contact Me</h2>
+      <p class="text-center text-slate-400 mb-8">
+        Have a question or want to collaborate on a project? Send a message below.
+      </p>
+      
+      <form id="contact-form" class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium mb-1 text-slate-300">Name</label>
+          <input type="text" id="name" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-teal-400 text-slate-100">
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1 text-slate-300">Email</label>
+          <input type="email" id="email" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-teal-400 text-slate-100">
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium mb-1 text-slate-300">Message</label>
+          <textarea id="message" rows="4" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:border-teal-400 text-slate-100"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-teal-500 text-slate-950 font-semibold rounded-lg hover:bg-teal-400 transition-colors">
+          Send Message
+        </button>
+      </form>
+      
+      <div id="form-feedback" class="hidden mt-4 p-4 rounded-lg bg-teal-900/50 text-teal-200 border border-teal-700 text-center">
+        Thank you for your message! I will get back to you soon.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 border-t border-slate-800 text-center text-sm text-slate-500">
+    <p>&copy; 2026 Personal Portfolio. Built with HTML, Tailwind CSS, and JavaScript.</p>
+  </footer>
+
+  <!-- Vanilla JavaScript -->
+  <script>
+    // Mobile Navigation Toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+
+    // Contact Form Submission
+    const contactForm = document.getElementById('contact-form');
+    const formFeedback = document.getElementById('form-feedback');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Clear inputs
+      contactForm.reset();
+      
+      // Display success message
+      formFeedback.classList.remove('hidden');
+      
+      setTimeout(() => {
+        formFeedback.classList.add('hidden');
+      }, 5000);
+    });
+  </script>
+</body>
+</html>
