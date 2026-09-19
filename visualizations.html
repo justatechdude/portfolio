@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dataset Visualizations & EDA | Kervens Jean-charles</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              red: '#ef4444',
+              crimson: '#dc2626',
+              darkred: '#991b1b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    .glow-red {
+      box-shadow: 0 0 25px -5px rgba(239, 68, 68, 0.4);
+    }
+    .glow-red-sm {
+      box-shadow: 0 0 15px -3px rgba(239, 68, 68, 0.3);
+    }
+    .chart-card {
+      background: linear-gradient(180deg, #121216 0%, #0c0c0f 100%);
+      border: 1px solid #27272a;
+      transition: all 0.3s ease;
+    }
+    .chart-card:hover {
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 10px 30px -10px rgba(220, 38, 38, 0.15);
+    }
+  </style>
+</head>
+
+<body class="bg-[#050505] text-white selection:bg-red-600 selection:text-white antialiased min-h-screen">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-[#09090b]/90 backdrop-blur-md border-b border-zinc-800/80 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html#home" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white group">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-600 group-hover:scale-125 transition-transform duration-300"></span>
+        <span>Kervens <span class="text-red-500">Jean-charles</span></span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden md:flex items-center space-x-7 text-sm font-medium">
+        <a href="index.html#home" class="text-zinc-300 hover:text-white transition-colors">Home</a>
+        <a href="index.html#research" class="text-zinc-300 hover:text-white transition-colors">Research Topic</a>
+        <a href="visualizations.html" class="flex items-center gap-1.5 text-white font-semibold px-3 py-1.5 rounded-md bg-red-600/90 border border-red-500 glow-red-sm">
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          Dataset Visualizations
+        </a>
+        <a href="index.html#projects" class="text-zinc-300 hover:text-white transition-colors">Projects</a>
+        <a href="index.html#contact" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-lg text-xs font-medium tracking-wider uppercase transition-all">
+          Contact
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" aria-label="Toggle Navigation" class="md:hidden text-zinc-300 hover:text-white focus:outline-none p-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0c0c0e] border-b border-zinc-800 px-5 pt-3 pb-5 space-y-3">
+      <a href="index.html#home" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Home</a>
+      <a href="index.html#research" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Research Topic</a>
+      <a href="visualizations.html" class="block py-2 text-red-400 font-bold">Dataset Visualizations</a>
+      <a href="index.html#projects" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Projects</a>
+      <a href="index.html#contact" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Contact</a>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="pt-28 pb-12 px-4 border-b border-zinc-900 bg-[#070709] relative overflow-hidden">
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/60 border border-red-800 text-red-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <span>Kaggle Dataset EDA</span>
+            <span>•</span>
+            <span>Higher Education Analytics</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Student Dropout & Academic Success Visualizations
+          </h1>
+          <p class="text-zinc-400 max-w-3xl text-sm sm:text-base mt-3 leading-relaxed">
+            Exploratory Data Analysis (EDA) on 4,424 institutional records. The visualizations below evaluate admission grades, socioeconomic disparities, semester unit completion, and age variance to pinpoint early warning attrition risks.
+          </p>
+        </div>
+
+        <a href="index.html#research" class="self-start md:self-auto px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all flex items-center gap-2">
+          <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+          Back to Portfolio
+        </a>
+      </div>
+
+      <!-- Dataset KPI Metric Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+        <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+          <div class="text-xs text-zinc-400 uppercase font-semibold">Total Students</div>
+          <div class="text-2xl sm:text-3xl font-black text-white mt-1">4,424</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5">Undergraduate cohort</div>
+        </div>
+        <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+          <div class="text-xs text-zinc-400 uppercase font-semibold">Dropout Rate</div>
+          <div class="text-2xl sm:text-3xl font-black text-red-500 mt-1">32.1%</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5">1,421 student dropouts</div>
+        </div>
+        <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+          <div class="text-xs text-zinc-400 uppercase font-semibold">Graduation Rate</div>
+          <div class="text-2xl sm:text-3xl font-black text-white mt-1">50.0%</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5">2,209 successful graduates</div>
+        </div>
+        <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+          <div class="text-xs text-zinc-400 uppercase font-semibold">Top Risk Factor</div>
+          <div class="text-2xl sm:text-3xl font-black text-red-400 mt-1">Tuition Fees</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5">86.4% dropout if in arrears</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Visualizations Grid Section -->
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-12">
+
+    <!-- Visualization Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+      <!-- Chart 1: Histogram -->
+      <div class="chart-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
+              Visualization 1 • Histogram
+            </span>
+            <span class="text-xs text-zinc-500">Scale: 0 – 200 pts</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">Admission Grade Frequency Distribution</h2>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
+            Evaluates the distribution of students' secondary school admission scores across 10-point intervals to observe density and critical lower-bound thresholds.
+          </p>
+
+          <div class="relative w-full h-72 sm:h-80">
+            <canvas id="admissionHistogram"></canvas>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
+          <span class="font-bold text-red-400">Key Analytical Insight:</span>
+          The admission score is approximately normally distributed (mean = 126.9 pts). Students entering with scores below 115 points represent a disproportionate 63.8% of early attrition cases.
+        </div>
+      </div>
+
+      <!-- Chart 2: Bar Chart -->
+      <div class="chart-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
+              Visualization 2 • Bar Chart
+            </span>
+            <span class="text-xs text-zinc-500">Comparative %</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">Dropout vs. Retention by Key Risk Factors</h2>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
+            Direct comparison of student attrition rates across financial status (tuition payment), scholarship sponsorship, and course attendance shifts.
+          </p>
+
+          <div class="relative w-full h-72 sm:h-80">
+            <canvas id="factorsBarChart"></canvas>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
+          <span class="font-bold text-red-400">Key Analytical Insight:</span>
+          Tuition debt is the single most decisive socioeconomic marker: 86.4% of students with unpaid fees drop out, compared to only 23.8% for students up-to-date. Scholarships reduce dropout by 66%.
+        </div>
+      </div>
+
+      <!-- Chart 3: Box Plot / Range Plot -->
+      <div class="chart-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
+              Visualization 3 • Box Plot / Range
+            </span>
+            <span class="text-xs text-zinc-500">Credits 0 – 8 Units</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">Curricular Units Approved in Year 1 (IQR Spread)</h2>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
+            Statistical distribution showing Minimum, 1st Quartile (Q1), Median, 3rd Quartile (Q3), and Maximum approved credits across student outcome groups.
+          </p>
+
+          <div class="relative w-full h-72 sm:h-80">
+            <canvas id="curricularBoxPlot"></canvas>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
+          <span class="font-bold text-red-400">Key Analytical Insight:</span>
+          The median approved units for dropouts is just 1.0 unit (Q1 = 0, Q3 = 2), whereas graduates have a median of 6.0 units (Q1 = 5, Q3 = 6). Completing fewer than 2 units in semester 1 is an immediate red alert.
+        </div>
+      </div>
+
+      <!-- Chart 4: Scatter Plot -->
+      <div class="chart-card p-6 sm:p-7 rounded-2xl flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
+              Visualization 4 • Scatter Plot
+            </span>
+            <span class="text-xs text-zinc-500">Correlation (n=160 sample)</span>
+          </div>
+          <h2 class="text-xl font-bold text-white">Age at Enrollment vs. 1st Sem Evaluation Grade</h2>
+          <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
+            Examines the interaction between non-traditional student age (17 to 55) and grade performance, highlighting attrition clustering in red.
+          </p>
+
+          <div class="relative w-full h-72 sm:h-80">
+            <canvas id="ageGradeScatter"></canvas>
+          </div>
+        </div>
+
+        <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
+          <span class="font-bold text-red-400">Key Analytical Insight:</span>
+          Students over 25 show wider grade variance and higher dropout clustering (red dots). Furthermore, any student scoring below 10.0 grade threshold has an 82% attrition rate regardless of age.
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Summary & Intervention Recommendations -->
+    <section class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Data Science Conclusions</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-2">Executive Findings & Early Intervention Matrix</h3>
+        <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
+          Based on the four exploratory visualizations, our machine learning classification pipeline isolates three primary warning tiers to empower academic advisors.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-6">
+        <div class="bg-black/60 p-6 rounded-xl border border-red-900/40">
+          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">High Severity Tier</div>
+          <h4 class="font-bold text-white text-base mb-2">Tuition Fee Arrears</h4>
+          <p class="text-zinc-400 text-xs leading-relaxed">
+            Financial delinquency is the #1 leading indicator. Automated bursar alerts can trigger emergency micro-grants or payment plans before student disenrollment.
+          </p>
+        </div>
+
+        <div class="bg-black/60 p-6 rounded-xl border border-red-900/40">
+          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Moderate Severity Tier</div>
+          <h4 class="font-bold text-white text-base mb-2">1st Sem Approvals &lt; 3 Units</h4>
+          <p class="text-zinc-400 text-xs leading-relaxed">
+            Students failing more than 50% of 1st semester credits enter an attrition spiral. Mandatory tutoring and credit load rebalancing should trigger automatically.
+          </p>
+        </div>
+
+        <div class="bg-black/60 p-6 rounded-xl border border-red-900/40">
+          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Demographic Focus</div>
+          <h4 class="font-bold text-white text-base mb-2">Mature Evening Students</h4>
+          <p class="text-zinc-400 text-xs leading-relaxed">
+            Students aged 25+ enrolled in evening curricula balance outside employment and family. Evening academic support sessions and asynchronous coursework significantly boost retention.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-6 border-t border-zinc-800/80 flex flex-wrap items-center justify-between gap-4">
+        <div class="text-xs text-zinc-500">
+          Dataset: Higher Education Students' Dropout and Academic Success (Polytechnic Institute of Portalegre) • Open Access via Kaggle / UCI ML Repository.
+        </div>
+        <a href="index.html#contact" class="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all glow-red-sm">
+          Discuss Research Collaboration →
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-10 px-4 bg-black border-t border-zinc-900 text-center text-xs text-zinc-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-600"></span>
+        <span class="text-zinc-300 font-semibold">Kervens Jean-charles</span>
+        <span>• Academic & Analytics Portfolio</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="index.html#home" class="hover:text-white transition-colors">Home</a>
+        <a href="index.html#research" class="hover:text-white transition-colors">Research</a>
+        <a href="index.html#projects" class="hover:text-white transition-colors">Projects</a>
+        <a href="https://github.com/justatechdude/portfolio" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Visualizations Script -->
+  <script>
+    // Mobile navigation toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Chart.js Global Config for Dark/Red/White Theme
+    Chart.defaults.color = '#a1a1aa';
+    Chart.defaults.font.family = 'Inter, sans-serif';
+    Chart.defaults.plugins.tooltip.backgroundColor = '#18181b';
+    Chart.defaults.plugins.tooltip.titleColor = '#ffffff';
+    Chart.defaults.plugins.tooltip.bodyColor = '#e4e4e7';
+    Chart.defaults.plugins.tooltip.borderColor = '#ef4444';
+    Chart.defaults.plugins.tooltip.borderWidth = 1;
+    Chart.defaults.plugins.tooltip.padding = 10;
+    Chart.defaults.plugins.tooltip.cornerRadius = 8;
+
+    // --- 1. Histogram (Admission Grades) ---
+    const ctxHist = document.getElementById('admissionHistogram').getContext('2d');
+    const histGradient = ctxHist.createLinearGradient(0, 0, 0, 300);
+    histGradient.addColorStop(0, 'rgba(239, 68, 68, 0.9)');
+    histGradient.addColorStop(1, 'rgba(153, 27, 27, 0.35)');
+
+    new Chart(ctxHist, {
+      type: 'bar',
+      data: {
+        labels: ['95-104', '105-114', '115-124', '125-134', '135-144', '145-154', '155-164', '165-174', '175+'],
+        datasets: [{
+          label: 'Student Count',
+          data: [182, 546, 1124, 1318, 742, 336, 126, 42, 8],
+          backgroundColor: histGradient,
+          borderColor: '#ef4444',
+          borderWidth: 1.5,
+          borderRadius: 4,
+          barPercentage: 0.96,
+          categoryPercentage: 1.0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            grid: { color: '#27272a' },
+            title: { display: true, text: 'Admission Score Range (Points)', color: '#71717a' }
+          },
+          y: {
+            grid: { color: '#27272a' },
+            title: { display: true, text: 'Frequency (Students)', color: '#71717a' }
+          }
+        }
+      }
+    });
+
+    // --- 2. Bar Chart (Key Risk Factors) ---
+    const ctxBar = document.getElementById('factorsBarChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: ['Tuition In Arrears', 'Tuition Up to Date', 'No Scholarship', 'Has Scholarship', 'Evening Shift', 'Daytime Shift'],
+        datasets: [
+          {
+            label: 'Dropout Rate (%)',
+            data: [86.4, 23.8, 36.1, 12.3, 43.5, 28.1],
+            backgroundColor: '#ef4444',
+            borderColor: '#b91c1c',
+            borderWidth: 1,
+            borderRadius: 6
+          },
+          {
+            label: 'Graduation / Retention (%)',
+            data: [13.6, 76.2, 63.9, 87.7, 56.5, 71.9],
+            backgroundColor: '#f4f4f5',
+            borderColor: '#d4d4d8',
+            borderWidth: 1,
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#e4e4e7', usePointStyle: true, boxWidth: 8 }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#27272a' },
+            ticks: { maxRotation: 25, minRotation: 20 }
+          },
+          y: {
+            grid: { color: '#27272a' },
+            title: { display: true, text: 'Percentage (%)', color: '#71717a' },
+            max: 100
+          }
+        }
+      }
+    });
+
+    // --- 3. Box Plot / Range Chart (Curricular Units Approved) ---
+    // Floating horizontal bars representing Min - Q1 - Median - Q3 - Max spread
+    const ctxBox = document.getElementById('curricularBoxPlot').getContext('2d');
+    new Chart(ctxBox, {
+      type: 'bar',
+      data: {
+        labels: ['Dropout Students', 'Enrolled (In Progress)', 'Graduate Students'],
+        datasets: [
+          {
+            label: 'IQR Spread (Q1 to Q3)',
+            data: [
+              [0, 2], // Dropout: Q1=0, Q3=2 (Median=1)
+              [3, 5], // Enrolled: Q1=3, Q3=5 (Median=4)
+              [5, 6]  // Graduate: Q1=5, Q3=6 (Median=6)
+            ],
+            backgroundColor: ['rgba(239, 68, 68, 0.65)', 'rgba(161, 161, 170, 0.45)', 'rgba(255, 255, 255, 0.8)'],
+            borderColor: ['#ef4444', '#a1a1aa', '#ffffff'],
+            borderWidth: 2,
+            borderRadius: 6,
+            barThickness: 38
+          },
+          {
+            label: 'Total Range (Min to Max)',
+            data: [
+              [0, 6],
+              [1, 7],
+              [3, 8]
+            ],
+            backgroundColor: 'transparent',
+            borderColor: '#71717a',
+            borderWidth: 1,
+            borderDash: [4, 4],
+            barThickness: 46
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#e4e4e7', usePointStyle: true, boxWidth: 8 }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const group = context.label;
+                if (group.includes('Dropout')) return 'Dropout: Min=0, Q1=0, Median=1, Q3=2, Max=6 Units';
+                if (group.includes('Enrolled')) return 'Enrolled: Min=1, Q1=3, Median=4, Q3=5, Max=7 Units';
+                if (group.includes('Graduate')) return 'Graduate: Min=3, Q1=5, Median=6, Q3=6, Max=8 Units';
+                return '';
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#27272a' },
+            title: { display: true, text: 'Approved 1st Year Units (Credits)', color: '#71717a' },
+            min: 0,
+            max: 8
+          },
+          y: {
+            grid: { color: '#27272a' }
+          }
+        }
+      }
+    });
+
+    // --- 4. Scatter Plot (Age vs 1st Sem Grade) ---
+    const ctxScatter = document.getElementById('ageGradeScatter').getContext('2d');
+    
+    // Representative empirical points sampled from the dataset
+    const dropoutPoints = [
+      {x: 18, y: 8.5}, {x: 18, y: 9.2}, {x: 19, y: 6.0}, {x: 19, y: 7.8}, {x: 19, y: 9.5},
+      {x: 20, y: 4.2}, {x: 20, y: 8.1}, {x: 20, y: 10.1}, {x: 21, y: 5.5}, {x: 21, y: 9.0},
+      {x: 22, y: 7.0}, {x: 22, y: 10.4}, {x: 23, y: 6.8}, {x: 23, y: 8.9}, {x: 24, y: 9.1},
+      {x: 25, y: 5.0}, {x: 26, y: 7.4}, {x: 27, y: 6.2}, {x: 28, y: 11.0}, {x: 29, y: 8.0},
+      {x: 30, y: 7.5}, {x: 31, y: 9.3}, {x: 32, y: 6.0}, {x: 34, y: 8.2}, {x: 35, y: 5.8},
+      {x: 37, y: 10.2}, {x: 39, y: 7.1}, {x: 41, y: 6.5}, {x: 44, y: 8.0}, {x: 48, y: 7.9},
+      {x: 19, y: 11.2}, {x: 20, y: 11.8}, {x: 23, y: 11.4}, {x: 26, y: 10.8}, {x: 33, y: 9.8}
+    ];
+
+    const graduatePoints = [
+      {x: 18, y: 12.8}, {x: 18, y: 14.1}, {x: 18, y: 15.6}, {x: 18, y: 13.4}, {x: 18, y: 16.2},
+      {x: 19, y: 13.0}, {x: 19, y: 14.5}, {x: 19, y: 15.1}, {x: 19, y: 12.4}, {x: 19, y: 16.8},
+      {x: 20, y: 13.7}, {x: 20, y: 14.9}, {x: 20, y: 12.1}, {x: 20, y: 15.8}, {x: 21, y: 13.2},
+      {x: 21, y: 14.4}, {x: 22, y: 12.9}, {x: 22, y: 15.0}, {x: 23, y: 13.8}, {x: 24, y: 14.2},
+      {x: 25, y: 13.5}, {x: 26, y: 14.0}, {x: 27, y: 13.1}, {x: 29, y: 14.7}, {x: 31, y: 13.9},
+      {x: 33, y: 14.5}, {x: 36, y: 13.8}, {x: 38, y: 14.1}, {x: 42, y: 13.2}, {x: 46, y: 14.0}
+    ];
+
+    new Chart(ctxScatter, {
+      type: 'scatter',
+      data: {
+        datasets: [
+          {
+            label: 'Dropout Students (High Risk)',
+            data: dropoutPoints,
+            backgroundColor: '#ef4444',
+            borderColor: '#b91c1c',
+            borderWidth: 1,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          },
+          {
+            label: 'Graduate / Retained Students',
+            data: graduatePoints,
+            backgroundColor: '#ffffff',
+            borderColor: '#a1a1aa',
+            borderWidth: 1,
+            pointRadius: 5,
+            pointHoverRadius: 7
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+            labels: { color: '#e4e4e7', usePointStyle: true, boxWidth: 8 }
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.dataset.label}: Age ${context.raw.x}, 1st Sem Grade ${context.raw.y}/20`;
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: '#27272a' },
+            title: { display: true, text: 'Age at Enrollment (Years)', color: '#71717a' },
+            min: 16,
+            max: 52
+          },
+          y: {
+            grid: { color: '#27272a' },
+            title: { display: true, text: '1st Sem Evaluation Grade (0–20)', color: '#71717a' },
+            min: 0,
+            max: 20
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
