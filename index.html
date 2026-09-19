@@ -393,6 +393,157 @@
       }, 5000);
     });
   </script>
+
+  <!-- Ambient Background Audio Player (Sleepwalking by Flawed Mangoes) -->
+  <div id="yt-audio-container" style="position: fixed; top: -9999px; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none;" aria-hidden="true">
+    <div id="youtube-audio-player"></div>
+  </div>
+
+  <!-- Floating Music Controller Pill -->
+  <div id="music-widget" class="fixed bottom-5 right-5 z-50 flex items-center gap-3 px-4 py-2.5 rounded-full bg-zinc-950/90 border border-zinc-800 hover:border-red-600/70 shadow-2xl backdrop-blur-md transition-all duration-300 select-none">
+    <button id="music-toggle-btn" type="button" aria-label="Toggle ambient music" class="w-8 h-8 rounded-full bg-red-600 hover:bg-red-500 text-white flex items-center justify-center transition-all glow-red-sm focus:outline-none cursor-pointer">
+      <svg id="music-play-icon" class="w-4 h-4 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+      <svg id="music-pause-icon" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+      </svg>
+    </button>
+
+    <div class="flex flex-col pr-1 cursor-pointer" id="music-info-area">
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-bold text-white tracking-tight">Sleepwalking</span>
+        <!-- Equalizer Sound Wave Animation -->
+        <div id="equalizer-bars" class="flex items-end gap-0.5 h-3 opacity-70">
+          <span class="eq-bar w-0.5 bg-red-500 rounded-full h-1"></span>
+          <span class="eq-bar w-0.5 bg-red-500 rounded-full h-2.5"></span>
+          <span class="eq-bar w-0.5 bg-red-500 rounded-full h-1.5"></span>
+        </div>
+      </div>
+      <span class="text-[10px] text-zinc-400 font-medium">Flawed Mangoes • <span id="music-status" class="text-red-400">Click anywhere to play</span></span>
+    </div>
+  </div>
+
+  <style>
+    @keyframes eqPulse {
+      0%, 100% { height: 3px; }
+      50% { height: 12px; }
+    }
+    .eq-animating .eq-bar:nth-child(1) { animation: eqPulse 0.8s ease-in-out infinite; }
+    .eq-animating .eq-bar:nth-child(2) { animation: eqPulse 0.6s ease-in-out infinite 0.2s; }
+    .eq-animating .eq-bar:nth-child(3) { animation: eqPulse 0.7s ease-in-out infinite 0.4s; }
+  </style>
+
+  <script>
+    // YouTube Ambient Audio Integration (Sleepwalking - Flawed Mangoes)
+    let ytPlayer = null;
+    let isAudioPlaying = false;
+    let hasUserInteracted = false;
+    let pendingPlay = false;
+
+    // Load YouTube IFrame Player API
+    const ytScript = document.createElement('script');
+    ytScript.src = "https://www.youtube.com/iframe_api";
+    document.head.appendChild(ytScript);
+
+    window.onYouTubeIframeAPIReady = function() {
+      ytPlayer = new YT.Player('youtube-audio-player', {
+        height: '1',
+        width: '1',
+        videoId: '9zoreg5Qxv0',
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: '9zoreg5Qxv0',
+          enablejsapi: 1,
+          playsinline: 1,
+          origin: window.location.origin || '*'
+        },
+        events: {
+          onReady: onPlayerReady,
+          onStateChange: onPlayerStateChange
+        }
+      });
+    };
+
+    function onPlayerReady(event) {
+      ytPlayer.setVolume(50); // Comfortable ambient volume
+      if (pendingPlay) {
+        startPlaying();
+      }
+    }
+
+    function onPlayerStateChange(event) {
+      const playIcon = document.getElementById('music-play-icon');
+      const pauseIcon = document.getElementById('music-pause-icon');
+      const eqBars = document.getElementById('equalizer-bars');
+      const musicStatus = document.getElementById('music-status');
+
+      if (event.data === YT.PlayerState.PLAYING) {
+        isAudioPlaying = true;
+        playIcon.classList.add('hidden');
+        pauseIcon.classList.remove('hidden');
+        eqBars.classList.add('eq-animating');
+        if (musicStatus) {
+          musicStatus.textContent = 'Ambient audio playing';
+          musicStatus.className = 'text-green-400';
+        }
+      } else {
+        isAudioPlaying = false;
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        eqBars.classList.remove('eq-animating');
+        if (musicStatus) {
+          musicStatus.textContent = 'Paused • Click to resume';
+          musicStatus.className = 'text-zinc-400';
+        }
+      }
+    }
+
+    function startPlaying() {
+      if (ytPlayer && typeof ytPlayer.playVideo === 'function') {
+        ytPlayer.playVideo();
+      } else {
+        pendingPlay = true;
+      }
+    }
+
+    function pausePlaying() {
+      if (ytPlayer && typeof ytPlayer.pauseVideo === 'function') {
+        ytPlayer.pauseVideo();
+      }
+    }
+
+    // Start audio on first user click anywhere on the page
+    function handleFirstUserClick(e) {
+      if (hasUserInteracted) return;
+      hasUserInteracted = true;
+      startPlaying();
+      document.removeEventListener('click', handleFirstUserClick);
+    }
+    document.addEventListener('click', handleFirstUserClick);
+
+    // Toggle button and info area on the widget
+    const toggleBtn = document.getElementById('music-toggle-btn');
+    const infoArea = document.getElementById('music-info-area');
+    
+    function toggleAudio(e) {
+      e.stopPropagation();
+      hasUserInteracted = true;
+      document.removeEventListener('click', handleFirstUserClick);
+
+      if (isAudioPlaying) {
+        pausePlaying();
+      } else {
+        startPlaying();
+      }
+    }
+
+    if (toggleBtn) toggleBtn.addEventListener('click', toggleAudio);
+    if (infoArea) infoArea.addEventListener('click', toggleAudio);
+  </script>
+
 </body>
 
 </html>
