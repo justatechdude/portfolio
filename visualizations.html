@@ -64,6 +64,19 @@
       color: #e4e4e7;
       overflow-x: auto;
     }
+    .source-note {
+      background: rgba(9, 9, 11, 0.58);
+      border-left: 2px solid rgba(239, 68, 68, 0.75);
+      color: #a1a1aa;
+    }
+    .source-note a {
+      color: #f87171;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .source-note a:hover {
+      color: #fca5a5;
+    }
   </style>
 </head>
 
@@ -206,6 +219,11 @@
           <div class="relative w-full h-72 sm:h-80">
             <canvas id="admissionHistogram"></canvas>
           </div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            values were found by grouping the Admission grade column into 10-point bins and counting students in each range.
+          </p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
@@ -231,6 +249,11 @@
           <div class="relative w-full h-72 sm:h-80">
             <canvas id="factorsBarChart"></canvas>
           </div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            values were found by grouping Target outcomes by tuition status, scholarship status, and attendance shift, then converting counts to percentages.
+          </p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
@@ -256,6 +279,11 @@
           <div class="relative w-full h-72 sm:h-80">
             <canvas id="curricularBoxPlot"></canvas>
           </div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            values were found by calculating min, Q1, median, Q3, and max for Curricular units 1st sem approved within each outcome group.
+          </p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
@@ -281,6 +309,11 @@
           <div class="relative w-full h-72 sm:h-80">
             <canvas id="ageGradeScatter"></canvas>
           </div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            points were found by sampling Age at enrollment against Curricular units 1st sem grade, then coloring each point by Target outcome.
+          </p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
@@ -392,11 +425,21 @@
           <h3 class="text-xl font-bold text-white">Data Quality Issue Counts</h3>
           <p class="text-zinc-400 text-sm mt-1 mb-5">Representative audit counts show where cleaning effort is concentrated before analysis.</p>
           <div class="relative h-80"><canvas id="cleaningIssuesChart"></canvas></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            was profiled for missing values, duplicate rows, type mismatches, invalid codes, outliers, category cleanup, and required transformations.
+          </p>
         </div>
         <div class="chart-card p-6 sm:p-7 rounded-2xl">
           <h3 class="text-xl font-bold text-white">Before vs. After Validation</h3>
           <p class="text-zinc-400 text-sm mt-1 mb-5">The cleaned file preserves the analytic cohort while correcting formatting, category, and validation problems.</p>
           <div class="relative h-80"><canvas id="validationBeforeAfterChart"></canvas></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            counts compare records before and after applying validation checks for clean rows, flagged rows, invalid codes, and formatting issues.
+          </p>
         </div>
       </div>
     </section>
@@ -472,11 +515,21 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
           <h3 class="text-xl font-bold text-white">SQL Result Visualization 1: Dropout Rate by Age Band</h3>
           <p class="text-zinc-400 text-sm mt-1 mb-5">Generated from the HAVING query that compares age bands with sufficient sample size.</p>
           <div class="relative h-80"><canvas id="sqlAgeBandChart"></canvas></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            values were found with a SQL GROUP BY on derived age bands and a HAVING filter to keep age groups with enough records.
+          </p>
         </div>
         <div class="chart-card p-6 sm:p-7 rounded-2xl">
           <h3 class="text-xl font-bold text-white">SQL Result Visualization 2: Attendance Shift Outcomes</h3>
           <p class="text-zinc-400 text-sm mt-1 mb-5">Generated from the JOIN query connecting program attendance shift to student outcomes.</p>
           <div class="relative h-80"><canvas id="sqlShiftChart"></canvas></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span>
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
+            values were found by joining student outcomes to program shift labels, grouping by shift and Target, then stacking the outcome percentages.
+          </p>
         </div>
       </div>
 
@@ -498,14 +551,14 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">1. Admission Grade Distribution</h3><div class="relative h-72 mt-4"><canvas id="edaAdmissionDistribution"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Scores cluster around 125-135. <span class="text-red-400 font-bold">Interpretation:</span> Most students enter with mid-range prior preparation. <span class="text-red-400 font-bold">Research Implication:</span> Admission grade alone is useful but not sufficient for dropout prediction.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">2. Approved Units by Outcome</h3><div class="relative h-72 mt-4"><canvas id="edaUnitsOutcome"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Dropouts approve far fewer first-semester units. <span class="text-red-400 font-bold">Interpretation:</span> Early academic progress separates outcomes quickly. <span class="text-red-400 font-bold">Research Implication:</span> First-semester credit completion should be an early alert metric.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">3. Tuition Status and Outcome</h3><div class="relative h-72 mt-4"><canvas id="edaTuitionOutcome"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Students with fees in arrears are mostly dropouts. <span class="text-red-400 font-bold">Interpretation:</span> Financial instability strongly aligns with attrition. <span class="text-red-400 font-bold">Research Implication:</span> Payment status should be studied as a primary intervention variable.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">4. Age vs. Semester Grade</h3><div class="relative h-72 mt-4"><canvas id="edaAgeGrade"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Older students show wider grade spread. <span class="text-red-400 font-bold">Interpretation:</span> Non-traditional students may face more varied academic constraints. <span class="text-red-400 font-bold">Research Implication:</span> Age should be tested with attendance shift and financial variables.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">5. Correlation Matrix</h3><div class="relative h-72 mt-4"><canvas id="edaCorrelation"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Approved units and semester grade move together, while dropout risk moves opposite. <span class="text-red-400 font-bold">Interpretation:</span> Academic progress variables are tightly related. <span class="text-red-400 font-bold">Research Implication:</span> Modeling should watch for overlapping predictors.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">6. Economic Indicator Trend</h3><div class="relative h-72 mt-4"><canvas id="edaEconomicTrend"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Dropout rate rises in cohorts with higher unemployment. <span class="text-red-400 font-bold">Interpretation:</span> External labor conditions may compound student risk. <span class="text-red-400 font-bold">Research Implication:</span> Macroeconomic variables belong in contextual analysis.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">7. Missing-Data Pattern</h3><div class="relative h-72 mt-4"><canvas id="edaMissingPattern"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Missingness is low but concentrated in grade-related fields. <span class="text-red-400 font-bold">Interpretation:</span> Missing academic values may reflect early non-participation. <span class="text-red-400 font-bold">Research Implication:</span> Missingness itself can be an attrition signal.</p></div>
-        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">8. Outlier and Anomaly Scan</h3><div class="relative h-72 mt-4"><canvas id="edaOutlierScan"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> A small group has high age or very low approved units. <span class="text-red-400 font-bold">Interpretation:</span> These are likely legitimate high-risk cases, not automatic errors. <span class="text-red-400 font-bold">Research Implication:</span> Outliers should be flagged and analyzed, not silently removed.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">1. Admission Grade Distribution</h3><div class="relative h-72 mt-4"><canvas id="edaAdmissionDistribution"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> grouped Admission grade into score ranges to inspect the main distribution.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Scores cluster around 125-135. <span class="text-red-400 font-bold">Interpretation:</span> Most students enter with mid-range prior preparation. <span class="text-red-400 font-bold">Research Implication:</span> Admission grade alone is useful but not sufficient for dropout prediction.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">2. Approved Units by Outcome</h3><div class="relative h-72 mt-4"><canvas id="edaUnitsOutcome"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> grouped Curricular units 1st sem approved by Target outcome and summarized quartiles/medians.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Dropouts approve far fewer first-semester units. <span class="text-red-400 font-bold">Interpretation:</span> Early academic progress separates outcomes quickly. <span class="text-red-400 font-bold">Research Implication:</span> First-semester credit completion should be an early alert metric.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">3. Tuition Status and Outcome</h3><div class="relative h-72 mt-4"><canvas id="edaTuitionOutcome"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> grouped Tuition fees up to date by Target and converted the outcome counts to percentages.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Students with fees in arrears are mostly dropouts. <span class="text-red-400 font-bold">Interpretation:</span> Financial instability strongly aligns with attrition. <span class="text-red-400 font-bold">Research Implication:</span> Payment status should be studied as a primary intervention variable.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">4. Age vs. Semester Grade</h3><div class="relative h-72 mt-4"><canvas id="edaAgeGrade"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> compared Age at enrollment with Curricular units 1st sem grade and colored records by Target.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Older students show wider grade spread. <span class="text-red-400 font-bold">Interpretation:</span> Non-traditional students may face more varied academic constraints. <span class="text-red-400 font-bold">Research Implication:</span> Age should be tested with attendance shift and financial variables.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">5. Correlation Matrix</h3><div class="relative h-72 mt-4"><canvas id="edaCorrelation"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> numeric fields were compared with pairwise correlation checks to identify stronger positive and negative relationships.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Approved units and semester grade move together, while dropout risk moves opposite. <span class="text-red-400 font-bold">Interpretation:</span> Academic progress variables are tightly related. <span class="text-red-400 font-bold">Research Implication:</span> Modeling should watch for overlapping predictors.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">6. Economic Indicator Trend</h3><div class="relative h-72 mt-4"><canvas id="edaEconomicTrend"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> cohort-level unemployment and dropout summaries were compared to explore macroeconomic context.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Dropout rate rises in cohorts with higher unemployment. <span class="text-red-400 font-bold">Interpretation:</span> External labor conditions may compound student risk. <span class="text-red-400 font-bold">Research Implication:</span> Macroeconomic variables belong in contextual analysis.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">7. Missing-Data Pattern</h3><div class="relative h-72 mt-4"><canvas id="edaMissingPattern"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> fields were profiled for missing percentages and compared across dropout and non-dropout records.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Missingness is low but concentrated in grade-related fields. <span class="text-red-400 font-bold">Interpretation:</span> Missing academic values may reflect early non-participation. <span class="text-red-400 font-bold">Research Implication:</span> Missingness itself can be an attrition signal.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">8. Outlier and Anomaly Scan</h3><div class="relative h-72 mt-4"><canvas id="edaOutlierScan"></canvas></div><p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed"><span class="font-bold text-zinc-200">Source & method:</span> <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a> numeric variables were scanned with range checks and IQR-style low/high outlier flags.</p><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> A small group has high age or very low approved units. <span class="text-red-400 font-bold">Interpretation:</span> These are likely legitimate high-risk cases, not automatic errors. <span class="text-red-400 font-bold">Research Implication:</span> Outliers should be flagged and analyzed, not silently removed.</p></div>
       </div>
 
       <div class="p-7 rounded-2xl bg-black/50 border border-zinc-800">
