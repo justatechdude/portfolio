@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dataset Visualizations & EDA | Kervens Jean-Charles</title>
+  <title>Dataset Charts & EDA | Kervens Jean-Charles</title>
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,9 +98,8 @@
           <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          Dataset Visualizations
+          Dataset Charts
         </a>
-        <a href="index.html#projects" class="text-zinc-300 hover:text-white transition-colors">Projects</a>
         <a href="index.html#contact" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-lg text-xs font-medium tracking-wider uppercase transition-all">
           Contact
         </a>
@@ -118,8 +117,7 @@
     <div id="mobile-menu" class="hidden md:hidden bg-[#0c0c0e] border-b border-zinc-800 px-5 pt-3 pb-5 space-y-3">
       <a href="index.html#home" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Home</a>
       <a href="index.html#research" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Research Topic</a>
-      <a href="visualizations.html" class="block py-2 text-red-400 font-bold">Dataset Visualizations</a>
-      <a href="index.html#projects" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Projects</a>
+      <a href="visualizations.html" class="block py-2 text-red-400 font-bold">Dataset Charts</a>
       <a href="index.html#contact" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Contact</a>
     </div>
   </nav>
@@ -137,10 +135,10 @@
             <span>Higher Education Analytics</span>
           </div>
           <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Student Dropout & Academic Success Visualizations
+            Student Dropout & Academic Success Charts
           </h1>
           <p class="text-zinc-400 max-w-3xl text-sm sm:text-base mt-3 leading-relaxed">
-            Exploratory Data Analysis (EDA) on 4,424 institutional records. The visualizations below evaluate admission grades, socioeconomic disparities, semester unit completion, and age variance to pinpoint early warning attrition risks.
+            Data exploration on 4,424 student records. The charts below look at admission grades, money-related differences, passed classes, and age to find early dropout warning signs.
           </p>
         </div>
 
@@ -170,7 +168,7 @@
         <div class="p-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
           <div class="text-xs text-zinc-400 uppercase font-semibold">Top Risk Factor</div>
           <div class="text-2xl sm:text-3xl font-black text-red-400 mt-1">Tuition Fees</div>
-          <div class="text-[11px] text-zinc-500 mt-0.5">86.4% dropout if in arrears</div>
+          <div class="text-[11px] text-zinc-500 mt-0.5">86.4% dropout if unpaid</div>
         </div>
       </div>
     </div>
@@ -183,7 +181,7 @@
     <div class="sticky top-[73px] z-30 -mx-4 px-4 py-3 bg-[#050505]/92 backdrop-blur-md border-y border-zinc-900">
       <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto">
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="final-visuals" aria-selected="true">
-          Final Visualizations
+          Final Charts
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="cleaning-tab" aria-selected="false">
           Data Cleaning & Preparation
@@ -192,7 +190,7 @@
           SQL Data Analysis
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="eda-tab" aria-selected="false">
-          Exploratory Data Analysis
+          Data Exploration
         </button>
       </div>
     </div>
@@ -207,13 +205,13 @@
         <div>
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
-              Visualization 1 • Histogram
+              Chart 1 • Histogram
             </span>
             <span class="text-xs text-zinc-500">Scale: 0 – 200 pts</span>
           </div>
           <h2 class="text-xl font-bold text-white">Admission Grade Frequency Distribution</h2>
           <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
-            Evaluates the distribution of students' secondary school admission scores across 10-point intervals to observe density and critical lower-bound thresholds.
+            Shows how students' admission scores are spread across 10-point score ranges.
           </p>
 
           <div class="relative w-full h-72 sm:h-80">
@@ -227,8 +225,8 @@
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
-          <span class="font-bold text-red-400">Key Analytical Insight:</span>
-          The admission score is approximately normally distributed (mean = 126.9 pts). Students entering with scores below 115 points represent a disproportionate 63.8% of early attrition cases.
+          <span class="font-bold text-red-400">Main takeaway:</span>
+          Admission scores are mostly centered near 126.9 points. Students below 115 points make up a large share of early dropout cases.
         </div>
       </div>
 
@@ -237,13 +235,13 @@
         <div>
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
-              Visualization 2 • Bar Chart
+              Chart 2 • Bar Chart
             </span>
             <span class="text-xs text-zinc-500">Comparative %</span>
           </div>
           <h2 class="text-xl font-bold text-white">Dropout vs. Retention by Key Risk Factors</h2>
           <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
-            Direct comparison of student attrition rates across financial status (tuition payment), scholarship sponsorship, and course attendance shifts.
+            Compares dropout rates by tuition payment, scholarship status, and class schedule.
           </p>
 
           <div class="relative w-full h-72 sm:h-80">
@@ -257,8 +255,8 @@
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
-          <span class="font-bold text-red-400">Key Analytical Insight:</span>
-          Tuition debt is the single most decisive socioeconomic marker: 86.4% of students with unpaid fees drop out, compared to only 23.8% for students up-to-date. Scholarships reduce dropout by 66%.
+          <span class="font-bold text-red-400">Main takeaway:</span>
+          Tuition debt is the clearest warning sign: 86.4% of students with unpaid fees drop out, compared with 23.8% for students whose fees are paid.
         </div>
       </div>
 
@@ -267,13 +265,13 @@
         <div>
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
-              Visualization 3 • Box Plot / Range
+              Chart 3 • Box Plot / Range
             </span>
             <span class="text-xs text-zinc-500">Credits 0 – 8 Units</span>
           </div>
-          <h2 class="text-xl font-bold text-white">Curricular Units Approved in Year 1 (IQR Spread)</h2>
+          <h2 class="text-xl font-bold text-white">Classes Passed in Year 1 (Middle Spread)</h2>
           <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
-            Statistical distribution showing Minimum, 1st Quartile (Q1), Median, 3rd Quartile (Q3), and Maximum approved credits across student outcome groups.
+            Shows the low, middle, and high number of first-year classes passed by each student outcome group.
           </p>
 
           <div class="relative w-full h-72 sm:h-80">
@@ -282,13 +280,13 @@
           <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
             <span class="font-bold text-zinc-200">Source & method:</span>
             <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
-            values were found by calculating min, Q1, median, Q3, and max for Curricular units 1st sem approved within each outcome group.
+            values were found by calculating the low, middle, and high counts for first-semester classes passed within each outcome group.
           </p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
-          <span class="font-bold text-red-400">Key Analytical Insight:</span>
-          The median approved units for dropouts is just 1.0 unit (Q1 = 0, Q3 = 2), whereas graduates have a median of 6.0 units (Q1 = 5, Q3 = 6). Completing fewer than 2 units in semester 1 is an immediate red alert.
+          <span class="font-bold text-red-400">Main takeaway:</span>
+          The middle dropout student passed only 1 class, while the middle graduate passed 6. Passing fewer than 2 classes in semester 1 is a strong warning sign.
         </div>
       </div>
 
@@ -297,13 +295,13 @@
         <div>
           <div class="flex items-center justify-between gap-2 mb-2">
             <span class="px-2.5 py-0.5 rounded bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-bold uppercase tracking-wider">
-              Visualization 4 • Scatter Plot
+              Chart 4 • Scatter Plot
             </span>
             <span class="text-xs text-zinc-500">Correlation (n=160 sample)</span>
           </div>
-          <h2 class="text-xl font-bold text-white">Age at Enrollment vs. 1st Sem Evaluation Grade</h2>
+          <h2 class="text-xl font-bold text-white">Age at Enrollment vs. 1st Semester Grade</h2>
           <p class="text-zinc-400 text-xs sm:text-sm mt-1 mb-5">
-            Examines the interaction between non-traditional student age (17 to 55) and grade performance, highlighting attrition clustering in red.
+            Compares student age with first-semester grades. Red dots show students who dropped out.
           </p>
 
           <div class="relative w-full h-72 sm:h-80">
@@ -312,13 +310,13 @@
           <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
             <span class="font-bold text-zinc-200">Source & method:</span>
             <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer">Kaggle dataset</a>
-            points were found by sampling Age at enrollment against Curricular units 1st sem grade, then coloring each point by Target outcome.
+            points were found by comparing Age at enrollment with first-semester grade, then coloring each point by final outcome.
           </p>
         </div>
 
         <div class="mt-6 pt-4 border-t border-zinc-800/80 text-xs text-zinc-300 bg-black/40 p-3.5 rounded-xl border border-zinc-800/50">
-          <span class="font-bold text-red-400">Key Analytical Insight:</span>
-          Students over 25 show wider grade variance and higher dropout clustering (red dots). Furthermore, any student scoring below 10.0 grade threshold has an 82% attrition rate regardless of age.
+          <span class="font-bold text-red-400">Main takeaway:</span>
+          Students over 25 have a wider range of grades and more dropout points. Students below a 10.0 grade have a much higher dropout rate.
         </div>
       </div>
 
@@ -327,35 +325,35 @@
     <!-- Summary & Intervention Recommendations -->
     <section class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
       <div class="max-w-3xl mb-8">
-        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Data Science Conclusions</span>
-        <h3 class="text-2xl sm:text-3xl font-black text-white mt-2">Executive Findings & Early Intervention Matrix</h3>
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Main Results</span>
+        <h3 class="text-2xl sm:text-3xl font-black text-white mt-2">Key Findings & Early Help Plan</h3>
         <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
-          Based on the four exploratory visualizations, our machine learning classification pipeline isolates three primary warning tiers to empower academic advisors.
+          Based on the four charts, three warning areas stand out for academic advisors.
         </p>
       </div>
 
       <div class="grid sm:grid-cols-3 gap-6">
         <div class="bg-black/60 p-6 rounded-xl border border-red-900/40">
-          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">High Severity Tier</div>
-          <h4 class="font-bold text-white text-base mb-2">Tuition Fee Arrears</h4>
+          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Highest Risk</div>
+          <h4 class="font-bold text-white text-base mb-2">Unpaid Tuition Fees</h4>
           <p class="text-zinc-400 text-xs leading-relaxed">
-            Financial delinquency is the #1 leading indicator. Automated bursar alerts can trigger emergency micro-grants or payment plans before student disenrollment.
+            Unpaid fees are the strongest warning sign. Schools can use early alerts to offer payment plans or emergency aid before a student leaves.
           </p>
         </div>
 
         <div class="bg-black/60 p-6 rounded-xl border border-red-900/40">
-          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Moderate Severity Tier</div>
-          <h4 class="font-bold text-white text-base mb-2">1st Sem Approvals &lt; 3 Units</h4>
+          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Medium Risk</div>
+          <h4 class="font-bold text-white text-base mb-2">Fewer Than 3 Classes Passed</h4>
           <p class="text-zinc-400 text-xs leading-relaxed">
-            Students failing more than 50% of 1st semester credits enter an attrition spiral. Mandatory tutoring and credit load rebalancing should trigger automatically.
+            Students who pass fewer than 3 first-semester classes may need tutoring, advising, or a better course load.
           </p>
         </div>
 
         <div class="bg-black/60 p-6 rounded-xl border border-red-900/40">
-          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Demographic Focus</div>
+          <div class="text-xs font-bold uppercase text-red-500 tracking-wider mb-2">Student Group Focus</div>
           <h4 class="font-bold text-white text-base mb-2">Mature Evening Students</h4>
           <p class="text-zinc-400 text-xs leading-relaxed">
-            Students aged 25+ enrolled in evening curricula balance outside employment and family. Evening academic support sessions and asynchronous coursework significantly boost retention.
+            Students age 25+ in evening classes may be balancing work, family, and school. Evening support and flexible coursework can help them stay enrolled.
           </p>
         </div>
       </div>
@@ -447,16 +445,16 @@
     <section id="sql-tab" class="tab-panel hidden space-y-8">
       <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
         <span class="text-xs font-bold uppercase tracking-widest text-red-500">SQL Data Analysis</span>
-        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">From Structured Data to Analytical Queries</h2>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">From Student Data to SQL Questions</h2>
         <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
-          Objective: convert the cleaned student records into SQL-compatible tables and demonstrate analytical querying with SELECT, FROM, WHERE, ORDER BY, GROUP BY, HAVING, and JOIN. Query results are then converted into charts that support the research questions about dropout risk.
+          Objective: turn the cleaned student records into SQL tables and show how basic SQL commands can answer questions about dropout risk. The query results are then turned into charts.
         </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Fact Table</div><p class="text-white font-semibold mt-1">student_outcomes</p><p class="text-zinc-400 text-xs mt-2">One row per student with grades, approved units, tuition status, scholarship status, age, and target outcome.</p></div>
         <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Dimension Table</div><p class="text-white font-semibold mt-1">dim_program</p><p class="text-zinc-400 text-xs mt-2">Program, attendance shift, degree area, and course metadata for JOIN-based comparisons.</p></div>
-        <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Dimension Table</div><p class="text-white font-semibold mt-1">dim_student_profile</p><p class="text-zinc-400 text-xs mt-2">Demographic and socioeconomic labels including age band, debtor label, and scholarship label.</p></div>
+        <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Dimension Table</div><p class="text-white font-semibold mt-1">dim_student_profile</p><p class="text-zinc-400 text-xs mt-2">Student background and money labels, including age group, debt label, and scholarship label.</p></div>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-6">
@@ -512,7 +510,7 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
 
       <div class="grid lg:grid-cols-2 gap-8">
         <div class="chart-card p-6 sm:p-7 rounded-2xl">
-          <h3 class="text-xl font-bold text-white">SQL Result Visualization 1: Dropout Rate by Age Band</h3>
+          <h3 class="text-xl font-bold text-white">SQL Chart 1: Dropout Rate by Age Group</h3>
           <p class="text-zinc-400 text-sm mt-1 mb-5">Generated from the HAVING query that compares age bands with sufficient sample size.</p>
           <div class="relative h-80"><canvas id="sqlAgeBandChart"></canvas></div>
           <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
@@ -522,7 +520,7 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
           </p>
         </div>
         <div class="chart-card p-6 sm:p-7 rounded-2xl">
-          <h3 class="text-xl font-bold text-white">SQL Result Visualization 2: Attendance Shift Outcomes</h3>
+          <h3 class="text-xl font-bold text-white">SQL Chart 2: Class Schedule Outcomes</h3>
           <p class="text-zinc-400 text-sm mt-1 mb-5">Generated from the JOIN query connecting program attendance shift to student outcomes.</p>
           <div class="relative h-80"><canvas id="sqlShiftChart"></canvas></div>
           <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
@@ -543,10 +541,10 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
 
     <section id="eda-tab" class="tab-panel hidden space-y-8">
       <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
-        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Exploratory Data Analysis</span>
-        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Discovering Patterns in the Data</h2>
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Data Exploration</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Finding Patterns in the Data</h2>
         <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
-          Objective: conduct systematic exploratory data analysis before producing final visualizations. This section investigates distributions, group differences, relationships, correlations, trends, outliers, missing-data patterns, and possible anomalies.
+          Objective: explore the data before making final charts. This section checks score patterns, group differences, relationships, trends, outliers, missing data, and unusual records.
         </p>
       </div>
 
@@ -586,7 +584,6 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       <div class="flex items-center gap-6">
         <a href="index.html#home" class="hover:text-white transition-colors">Home</a>
         <a href="index.html#research" class="hover:text-white transition-colors">Research</a>
-        <a href="index.html#projects" class="hover:text-white transition-colors">Projects</a>
         <a href="https://github.com/justatechdude/portfolio" target="_blank" class="hover:text-white transition-colors">GitHub</a>
       </div>
     </div>
