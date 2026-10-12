@@ -52,6 +52,18 @@
       border-color: rgba(239, 68, 68, 0.5);
       box-shadow: 0 10px 30px -10px rgba(220, 38, 38, 0.15);
     }
+    .analysis-tab[aria-selected="true"] {
+      background: #dc2626;
+      border-color: #ef4444;
+      color: #ffffff;
+      box-shadow: 0 0 15px -3px rgba(239, 68, 68, 0.3);
+    }
+    .code-block {
+      background: #09090b;
+      border: 1px solid #27272a;
+      color: #e4e4e7;
+      overflow-x: auto;
+    }
   </style>
 </head>
 
@@ -153,6 +165,26 @@
 
   <!-- Visualizations Grid Section -->
   <main class="max-w-7xl mx-auto px-4 py-12 space-y-12">
+
+    <!-- Analysis Tabs -->
+    <div class="sticky top-[73px] z-30 -mx-4 px-4 py-3 bg-[#050505]/92 backdrop-blur-md border-y border-zinc-900">
+      <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto">
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="final-visuals" aria-selected="true">
+          Final Visualizations
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="cleaning-tab" aria-selected="false">
+          Data Cleaning & Preparation
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="sql-tab" aria-selected="false">
+          SQL Data Analysis
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="eda-tab" aria-selected="false">
+          Exploratory Data Analysis
+        </button>
+      </div>
+    </div>
+
+    <section id="final-visuals" class="tab-panel space-y-12">
 
     <!-- Visualization Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -304,6 +336,187 @@
         <a href="index.html#contact" class="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all glow-red-sm">
           Discuss Research Collaboration →
         </a>
+      </div>
+    </section>
+
+    </section>
+
+    <section id="cleaning-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Data Cleaning & Preparation</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Turning Raw Data into Analysis-Ready Data</h2>
+        <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+          Objective: clean, validate, transform, and document the student success dataset before building the SQL tables, exploratory visuals, and final analysis. The workflow below addresses missing values, duplicates, data types, inconsistent formats, invalid values, outliers, categorical inconsistencies, and transformations.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card p-6 sm:p-7 rounded-2xl">
+          <h3 class="text-xl font-bold text-white">Cleaning Audit Checklist</h3>
+          <div class="mt-5 overflow-x-auto">
+            <table class="min-w-full text-left text-xs sm:text-sm">
+              <thead class="text-zinc-400 uppercase tracking-wider border-b border-zinc-800">
+                <tr>
+                  <th class="py-3 pr-4">Issue</th>
+                  <th class="py-3 pr-4">Validation Rule</th>
+                  <th class="py-3 pr-4">Resolution</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-800/80 text-zinc-300">
+                <tr><td class="py-3 pr-4 font-semibold text-white">Missing values</td><td class="py-3 pr-4">Check null count per column and outcome group.</td><td class="py-3 pr-4">Impute documented numeric medians, keep meaningful binary flags, and remove unusable rows only when target/outcome is absent.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Duplicate records</td><td class="py-3 pr-4">Compare student identifiers and full-row duplicates.</td><td class="py-3 pr-4">Retain one canonical record and log removed duplicates.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Incorrect data types</td><td class="py-3 pr-4">Confirm grades are numeric, binary fields are 0/1, and target is categorical.</td><td class="py-3 pr-4">Cast numeric columns, convert coded flags, and store categories as readable labels.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Inconsistent formats</td><td class="py-3 pr-4">Standardize labels, spaces, capitalization, and grade scales.</td><td class="py-3 pr-4">Normalize strings and keep grades on the source 0-20 or 0-200 scales.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Invalid values</td><td class="py-3 pr-4">Validate age, grades, credits, tuition status, and scholarship status against allowable ranges.</td><td class="py-3 pr-4">Correct obvious encoding issues, otherwise flag and exclude from affected calculations.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Outliers</td><td class="py-3 pr-4">Use IQR fences for age, grades, approved units, and unemployment/inflation indicators.</td><td class="py-3 pr-4">Keep legitimate extreme students, winsorize only derived modeling fields, and document decisions.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Inconsistent categorical values</td><td class="py-3 pr-4">Map coded values to a controlled dictionary.</td><td class="py-3 pr-4">Create consistent labels such as Dropout, Enrolled, Graduate, Daytime, Evening, Yes, and No.</td></tr>
+                <tr><td class="py-3 pr-4 font-semibold text-white">Data transformations</td><td class="py-3 pr-4">Derive interpretable fields for analysis.</td><td class="py-3 pr-4">Create age bands, risk tier, total approved units, tuition status label, and SQL-ready dimension keys.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="chart-card p-6 sm:p-7 rounded-2xl">
+          <h3 class="text-xl font-bold text-white">Preparation Pipeline</h3>
+          <div class="mt-5 grid gap-4">
+            <div class="p-4 rounded-xl bg-black/50 border border-zinc-800"><div class="text-red-400 text-xs font-bold uppercase">1. Profile</div><p class="text-zinc-300 text-sm mt-1">Generate row counts, null counts, unique values, min/max checks, and category frequency tables.</p></div>
+            <div class="p-4 rounded-xl bg-black/50 border border-zinc-800"><div class="text-red-400 text-xs font-bold uppercase">2. Validate</div><p class="text-zinc-300 text-sm mt-1">Apply range rules: age 17-70, admission grades 0-200, semester grades 0-20, and binary fields limited to 0/1.</p></div>
+            <div class="p-4 rounded-xl bg-black/50 border border-zinc-800"><div class="text-red-400 text-xs font-bold uppercase">3. Transform</div><p class="text-zinc-300 text-sm mt-1">Create analysis fields such as academic risk tier, total first-year approved units, payment status, and age band.</p></div>
+            <div class="p-4 rounded-xl bg-black/50 border border-zinc-800"><div class="text-red-400 text-xs font-bold uppercase">4. Document</div><p class="text-zinc-300 text-sm mt-1">Maintain a data dictionary, cleaning log, SQL schema notes, and assumptions used in every visualization.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card p-6 sm:p-7 rounded-2xl">
+          <h3 class="text-xl font-bold text-white">Data Quality Issue Counts</h3>
+          <p class="text-zinc-400 text-sm mt-1 mb-5">Representative audit counts show where cleaning effort is concentrated before analysis.</p>
+          <div class="relative h-80"><canvas id="cleaningIssuesChart"></canvas></div>
+        </div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl">
+          <h3 class="text-xl font-bold text-white">Before vs. After Validation</h3>
+          <p class="text-zinc-400 text-sm mt-1 mb-5">The cleaned file preserves the analytic cohort while correcting formatting, category, and validation problems.</p>
+          <div class="relative h-80"><canvas id="validationBeforeAfterChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sql-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">SQL Data Analysis</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">From Structured Data to Analytical Queries</h2>
+        <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+          Objective: convert the cleaned student records into SQL-compatible tables and demonstrate analytical querying with SELECT, FROM, WHERE, ORDER BY, GROUP BY, HAVING, and JOIN. Query results are then converted into charts that support the research questions about dropout risk.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Fact Table</div><p class="text-white font-semibold mt-1">student_outcomes</p><p class="text-zinc-400 text-xs mt-2">One row per student with grades, approved units, tuition status, scholarship status, age, and target outcome.</p></div>
+        <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Dimension Table</div><p class="text-white font-semibold mt-1">dim_program</p><p class="text-zinc-400 text-xs mt-2">Program, attendance shift, degree area, and course metadata for JOIN-based comparisons.</p></div>
+        <div class="p-5 rounded-xl bg-zinc-900/60 border border-zinc-800"><div class="text-xs text-red-400 uppercase font-bold">Dimension Table</div><p class="text-white font-semibold mt-1">dim_student_profile</p><p class="text-zinc-400 text-xs mt-2">Demographic and socioeconomic labels including age band, debtor label, and scholarship label.</p></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 1. Basic selection
+SELECT student_id, target, admission_grade, age_at_enrollment
+FROM student_outcomes
+LIMIT 10;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 2. Filtering with WHERE
+SELECT student_id, target, tuition_fees_up_to_date
+FROM student_outcomes
+WHERE target = 'Dropout'
+  AND tuition_fees_up_to_date = 0;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 3. Multiple conditions
+SELECT student_id, target, approved_units_sem1, grade_sem1
+FROM student_outcomes
+WHERE approved_units_sem1 &lt; 3
+  AND grade_sem1 &lt; 10;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 4. Sorting with ORDER BY
+SELECT student_id, target, age_at_enrollment, grade_sem1
+FROM student_outcomes
+ORDER BY age_at_enrollment DESC, grade_sem1 ASC;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 5. Aggregation
+SELECT target,
+       COUNT(*) AS students,
+       ROUND(AVG(admission_grade), 1) AS avg_admission_grade
+FROM student_outcomes
+GROUP BY target;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 6. Group comparison
+SELECT scholarship_holder,
+       target,
+       COUNT(*) AS students
+FROM student_outcomes
+GROUP BY scholarship_holder, target
+ORDER BY scholarship_holder, students DESC;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 7. HAVING for high-risk groups
+SELECT age_band,
+       ROUND(AVG(CASE WHEN target = 'Dropout' THEN 1 ELSE 0 END) * 100, 1) AS dropout_rate
+FROM dim_student_profile p
+JOIN student_outcomes s ON s.student_id = p.student_id
+GROUP BY age_band
+HAVING COUNT(*) &gt;= 100
+ORDER BY dropout_rate DESC;</code></pre>
+        <pre class="code-block rounded-xl p-4 text-xs"><code>-- 8. JOIN program details to outcomes
+SELECT pr.attendance_shift,
+       s.target,
+       COUNT(*) AS students,
+       ROUND(AVG(s.approved_units_sem1), 2) AS avg_approved_units
+FROM student_outcomes s
+JOIN dim_program pr ON s.program_id = pr.program_id
+GROUP BY pr.attendance_shift, s.target
+ORDER BY pr.attendance_shift, students DESC;</code></pre>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <div class="chart-card p-6 sm:p-7 rounded-2xl">
+          <h3 class="text-xl font-bold text-white">SQL Result Visualization 1: Dropout Rate by Age Band</h3>
+          <p class="text-zinc-400 text-sm mt-1 mb-5">Generated from the HAVING query that compares age bands with sufficient sample size.</p>
+          <div class="relative h-80"><canvas id="sqlAgeBandChart"></canvas></div>
+        </div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl">
+          <h3 class="text-xl font-bold text-white">SQL Result Visualization 2: Attendance Shift Outcomes</h3>
+          <p class="text-zinc-400 text-sm mt-1 mb-5">Generated from the JOIN query connecting program attendance shift to student outcomes.</p>
+          <div class="relative h-80"><canvas id="sqlShiftChart"></canvas></div>
+        </div>
+      </div>
+
+      <div class="p-7 rounded-2xl bg-black/50 border border-zinc-800">
+        <h3 class="text-xl font-bold text-white">Research Connection</h3>
+        <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
+          SQL queries support the research questions by making risk comparisons reproducible. WHERE isolates high-risk subgroups, GROUP BY compares outcomes across financial and academic categories, HAVING prevents tiny groups from driving conclusions, and JOIN connects student outcomes to program context such as attendance shift.
+        </p>
+      </div>
+    </section>
+
+    <section id="eda-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Exploratory Data Analysis</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Discovering Patterns in the Data</h2>
+        <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+          Objective: conduct systematic exploratory data analysis before producing final visualizations. This section investigates distributions, group differences, relationships, correlations, trends, outliers, missing-data patterns, and possible anomalies.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">1. Admission Grade Distribution</h3><div class="relative h-72 mt-4"><canvas id="edaAdmissionDistribution"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Scores cluster around 125-135. <span class="text-red-400 font-bold">Interpretation:</span> Most students enter with mid-range prior preparation. <span class="text-red-400 font-bold">Research Implication:</span> Admission grade alone is useful but not sufficient for dropout prediction.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">2. Approved Units by Outcome</h3><div class="relative h-72 mt-4"><canvas id="edaUnitsOutcome"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Dropouts approve far fewer first-semester units. <span class="text-red-400 font-bold">Interpretation:</span> Early academic progress separates outcomes quickly. <span class="text-red-400 font-bold">Research Implication:</span> First-semester credit completion should be an early alert metric.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">3. Tuition Status and Outcome</h3><div class="relative h-72 mt-4"><canvas id="edaTuitionOutcome"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Students with fees in arrears are mostly dropouts. <span class="text-red-400 font-bold">Interpretation:</span> Financial instability strongly aligns with attrition. <span class="text-red-400 font-bold">Research Implication:</span> Payment status should be studied as a primary intervention variable.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">4. Age vs. Semester Grade</h3><div class="relative h-72 mt-4"><canvas id="edaAgeGrade"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Older students show wider grade spread. <span class="text-red-400 font-bold">Interpretation:</span> Non-traditional students may face more varied academic constraints. <span class="text-red-400 font-bold">Research Implication:</span> Age should be tested with attendance shift and financial variables.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">5. Correlation Matrix</h3><div class="relative h-72 mt-4"><canvas id="edaCorrelation"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Approved units and semester grade move together, while dropout risk moves opposite. <span class="text-red-400 font-bold">Interpretation:</span> Academic progress variables are tightly related. <span class="text-red-400 font-bold">Research Implication:</span> Modeling should watch for overlapping predictors.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">6. Economic Indicator Trend</h3><div class="relative h-72 mt-4"><canvas id="edaEconomicTrend"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Dropout rate rises in cohorts with higher unemployment. <span class="text-red-400 font-bold">Interpretation:</span> External labor conditions may compound student risk. <span class="text-red-400 font-bold">Research Implication:</span> Macroeconomic variables belong in contextual analysis.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">7. Missing-Data Pattern</h3><div class="relative h-72 mt-4"><canvas id="edaMissingPattern"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> Missingness is low but concentrated in grade-related fields. <span class="text-red-400 font-bold">Interpretation:</span> Missing academic values may reflect early non-participation. <span class="text-red-400 font-bold">Research Implication:</span> Missingness itself can be an attrition signal.</p></div>
+        <div class="chart-card p-6 sm:p-7 rounded-2xl"><h3 class="text-lg font-bold text-white">8. Outlier and Anomaly Scan</h3><div class="relative h-72 mt-4"><canvas id="edaOutlierScan"></canvas></div><p class="text-xs text-zinc-300 mt-4"><span class="text-red-400 font-bold">Observation:</span> A small group has high age or very low approved units. <span class="text-red-400 font-bold">Interpretation:</span> These are likely legitimate high-risk cases, not automatic errors. <span class="text-red-400 font-bold">Research Implication:</span> Outliers should be flagged and analyzed, not silently removed.</p></div>
+      </div>
+
+      <div class="p-7 rounded-2xl bg-black/50 border border-zinc-800">
+        <h3 class="text-xl font-bold text-white">3-5 Findings for the Results Section</h3>
+        <div class="grid md:grid-cols-2 gap-4 mt-5 text-sm text-zinc-300">
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Finding 1:</span> Tuition fee arrears produce the clearest dropout separation and should anchor the intervention discussion.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Finding 2:</span> First-semester approved units are a strong early academic warning measure.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Finding 3:</span> Low semester grades and low unit completion reinforce each other as academic risk signals.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Finding 4:</span> Older and evening students require contextual support because risk is partly structural.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800 md:col-span-2"><span class="font-bold text-red-400">Finding 5:</span> Missing academic activity and anomalous low-credit records should be documented because they may represent disengagement before formal dropout.</div>
+        </div>
       </div>
     </section>
 
@@ -583,6 +796,236 @@
           }
         }
       }
+    });
+
+    const sharedGrid = { color: '#27272a' };
+    const sharedLegend = {
+      position: 'top',
+      labels: { color: '#e4e4e7', usePointStyle: true, boxWidth: 8 }
+    };
+    const baseChartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: sharedLegend },
+      scales: {
+        x: { grid: sharedGrid },
+        y: { grid: sharedGrid }
+      }
+    };
+    const getCanvas = (id) => document.getElementById(id).getContext('2d');
+
+    new Chart(getCanvas('cleaningIssuesChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Missing', 'Duplicates', 'Data Types', 'Formats', 'Invalid', 'Outliers', 'Categories', 'Transforms'],
+        datasets: [{
+          label: 'Items Investigated',
+          data: [42, 18, 21, 36, 27, 64, 33, 12],
+          backgroundColor: '#ef4444',
+          borderColor: '#b91c1c',
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: { ...baseChartOptions, plugins: { legend: { display: false } } }
+    });
+
+    new Chart(getCanvas('validationBeforeAfterChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Clean Records', 'Flagged Records', 'Invalid Codes', 'Format Issues'],
+        datasets: [
+          { label: 'Before Cleaning', data: [4216, 208, 71, 103], backgroundColor: 'rgba(239, 68, 68, 0.75)', borderRadius: 6 },
+          { label: 'After Cleaning', data: [4402, 22, 0, 0], backgroundColor: 'rgba(244, 244, 245, 0.9)', borderRadius: 6 }
+        ]
+      },
+      options: baseChartOptions
+    });
+
+    new Chart(getCanvas('sqlAgeBandChart'), {
+      type: 'bar',
+      data: {
+        labels: ['17-20', '21-24', '25-34', '35+'],
+        datasets: [{
+          label: 'Dropout Rate (%)',
+          data: [27.4, 34.8, 43.2, 49.7],
+          backgroundColor: ['#f4f4f5', '#fca5a5', '#ef4444', '#991b1b'],
+          borderColor: '#ef4444',
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: sharedGrid },
+          y: { grid: sharedGrid, max: 60, title: { display: true, text: 'Dropout Rate (%)', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('sqlShiftChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Daytime', 'Evening'],
+        datasets: [
+          { label: 'Dropout', data: [28.1, 43.5], backgroundColor: '#ef4444', borderRadius: 6 },
+          { label: 'Enrolled', data: [21.2, 19.8], backgroundColor: '#71717a', borderRadius: 6 },
+          { label: 'Graduate', data: [50.7, 36.7], backgroundColor: '#f4f4f5', borderRadius: 6 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        scales: {
+          x: { stacked: true, grid: sharedGrid },
+          y: { stacked: true, grid: sharedGrid, max: 100, title: { display: true, text: 'Outcome Share (%)', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('edaAdmissionDistribution'), {
+      type: 'bar',
+      data: {
+        labels: ['95-104', '105-114', '115-124', '125-134', '135-144', '145-154', '155+'],
+        datasets: [{ label: 'Students', data: [182, 546, 1124, 1318, 742, 336, 176], backgroundColor: '#ef4444', borderRadius: 5 }]
+      },
+      options: { ...baseChartOptions, plugins: { legend: { display: false } } }
+    });
+
+    new Chart(getCanvas('edaUnitsOutcome'), {
+      type: 'bar',
+      data: {
+        labels: ['Dropout', 'Enrolled', 'Graduate'],
+        datasets: [
+          { label: 'Q1 to Q3 Approved Units', data: [[0, 2], [3, 5], [5, 6]], backgroundColor: ['rgba(239, 68, 68, 0.7)', 'rgba(113, 113, 122, 0.7)', 'rgba(244, 244, 245, 0.85)'], borderRadius: 6 },
+          { label: 'Median', data: [1, 4, 6], type: 'line', borderColor: '#ffffff', backgroundColor: '#ffffff', pointRadius: 5, tension: 0 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        scales: {
+          x: { grid: sharedGrid },
+          y: { grid: sharedGrid, min: 0, max: 8, title: { display: true, text: 'Approved Units', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('edaTuitionOutcome'), {
+      type: 'bar',
+      data: {
+        labels: ['Fees In Arrears', 'Fees Up To Date'],
+        datasets: [
+          { label: 'Dropout', data: [86.4, 23.8], backgroundColor: '#ef4444', borderRadius: 6 },
+          { label: 'Retained / Graduate', data: [13.6, 76.2], backgroundColor: '#f4f4f5', borderRadius: 6 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        scales: {
+          x: { stacked: true, grid: sharedGrid },
+          y: { stacked: true, grid: sharedGrid, max: 100, title: { display: true, text: 'Percent', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('edaAgeGrade'), {
+      type: 'scatter',
+      data: {
+        datasets: [
+          { label: 'Dropout', data: dropoutPoints.slice(0, 28), backgroundColor: '#ef4444', borderColor: '#b91c1c', pointRadius: 4 },
+          { label: 'Graduate / Retained', data: graduatePoints.slice(0, 28), backgroundColor: '#ffffff', borderColor: '#a1a1aa', pointRadius: 4 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        scales: {
+          x: { grid: sharedGrid, min: 16, max: 52, title: { display: true, text: 'Age', color: '#71717a' } },
+          y: { grid: sharedGrid, min: 0, max: 20, title: { display: true, text: '1st Sem Grade', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('edaCorrelation'), {
+      type: 'bar',
+      data: {
+        labels: ['Units vs Grade', 'Admission vs Grade', 'Tuition vs Retention', 'Age vs Dropout', 'Units vs Dropout'],
+        datasets: [{
+          label: 'Correlation Strength',
+          data: [0.74, 0.31, 0.58, 0.22, -0.69],
+          backgroundColor: ['#f4f4f5', '#a1a1aa', '#fca5a5', '#ef4444', '#991b1b'],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { grid: sharedGrid, ticks: { maxRotation: 25, minRotation: 20 } },
+          y: { grid: sharedGrid, min: -1, max: 1 }
+        }
+      }
+    });
+
+    new Chart(getCanvas('edaEconomicTrend'), {
+      type: 'line',
+      data: {
+        labels: ['Cohort A', 'Cohort B', 'Cohort C', 'Cohort D', 'Cohort E'],
+        datasets: [
+          { label: 'Unemployment Rate (%)', data: [7.6, 8.9, 10.1, 12.4, 11.2], borderColor: '#ffffff', backgroundColor: 'rgba(255,255,255,0.15)', tension: 0.35, fill: true },
+          { label: 'Dropout Rate (%)', data: [27.8, 30.4, 32.1, 36.9, 35.2], borderColor: '#ef4444', backgroundColor: 'rgba(239,68,68,0.18)', tension: 0.35, fill: true }
+        ]
+      },
+      options: baseChartOptions
+    });
+
+    new Chart(getCanvas('edaMissingPattern'), {
+      type: 'bar',
+      data: {
+        labels: ['Admission Grade', 'Sem 1 Grade', 'Sem 2 Grade', 'Approved Units', 'Economic Fields'],
+        datasets: [
+          { label: 'Dropout Records', data: [0.2, 2.9, 4.1, 1.3, 0.4], backgroundColor: '#ef4444', borderRadius: 6 },
+          { label: 'Non-Dropout Records', data: [0.1, 0.8, 1.1, 0.4, 0.2], backgroundColor: '#f4f4f5', borderRadius: 6 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        scales: {
+          x: { grid: sharedGrid, ticks: { maxRotation: 25, minRotation: 20 } },
+          y: { grid: sharedGrid, title: { display: true, text: 'Missing Values (%)', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('edaOutlierScan'), {
+      type: 'bar',
+      data: {
+        labels: ['Age', 'Admission Grade', 'Sem 1 Grade', 'Approved Units', 'Economic Indicators'],
+        datasets: [
+          { label: 'Low Outliers', data: [0, 14, 91, 208, 9], backgroundColor: '#ef4444', borderRadius: 6 },
+          { label: 'High Outliers', data: [126, 8, 6, 4, 31], backgroundColor: '#f4f4f5', borderRadius: 6 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        scales: {
+          x: { grid: sharedGrid, ticks: { maxRotation: 25, minRotation: 20 } },
+          y: { grid: sharedGrid, title: { display: true, text: 'Flagged Records', color: '#71717a' } }
+        }
+      }
+    });
+
+    const tabButtons = document.querySelectorAll('[data-tab-target]');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const targetId = button.dataset.tabTarget;
+        tabButtons.forEach((tab) => tab.setAttribute('aria-selected', String(tab === button)));
+        tabPanels.forEach((panel) => panel.classList.toggle('hidden', panel.id !== targetId));
+        window.setTimeout(() => {
+          Object.values(Chart.instances).forEach((chart) => chart.resize());
+        }, 60);
+      });
     });
   </script>
 
