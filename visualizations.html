@@ -100,6 +100,7 @@
           </svg>
           Dataset Charts
         </a>
+        <a href="models.html" class="text-zinc-300 hover:text-white transition-colors">Models</a>
         <a href="index.html#contact" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-lg text-xs font-medium tracking-wider uppercase transition-all">
           Contact
         </a>
@@ -118,6 +119,8 @@
       <a href="index.html#home" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Home</a>
       <a href="index.html#research" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Research Topic</a>
       <a href="visualizations.html" class="block py-2 text-red-400 font-bold">Dataset Charts</a>
+      <a href="#redesign-tab" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Visualization Redesign</a>
+      <a href="models.html" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Models</a>
       <a href="index.html#contact" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Contact</a>
     </div>
   </nav>
@@ -191,6 +194,9 @@
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="eda-tab" aria-selected="false">
           Data Exploration
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="redesign-tab" aria-selected="false">
+          Static Visualization & Redesign
         </button>
       </div>
     </div>
@@ -571,6 +577,163 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       </div>
     </section>
 
+    <section id="redesign-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Static Visualization & Visualization Redesign</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Turning Analysis into Effective Visual Communication</h2>
+        <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+          Objective: transform exploratory visualizations into clear, professional static visualizations. These five redesigns improve chart type, title, labels, scale, legend, annotation, layout, visual hierarchy, and accessibility.
+        </p>
+      </div>
+
+      <div class="space-y-8">
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 1</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Tuition arrears are the strongest dropout signal</h3>
+              <p class="text-zinc-400 text-sm mt-2 max-w-3xl">The exploratory chart mixed outcome shares, but the redesign uses a focused slope-style comparison with direct labels and an annotation on the 86.4% dropout rate.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-zinc-300">
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Chart type</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Scale</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Annotation</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Accessibility</span>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-5 items-stretch">
+            <div class="p-4 rounded-xl bg-black/45 border border-zinc-800">
+              <h4 class="text-sm font-bold text-zinc-200">Original Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Exploratory stacked bars with broad labels.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignOriginalTuition"></canvas></div>
+            </div>
+            <div class="hidden lg:flex items-center text-red-400 font-black text-2xl">→</div>
+            <div class="p-4 rounded-xl bg-black/45 border border-red-900/60">
+              <h4 class="text-sm font-bold text-white">Redesigned Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Focused comparison with direct labeling and clear 0-100% scale.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignTuition"></canvas></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 2</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">First-semester approved units separate outcomes early</h3>
+              <p class="text-zinc-400 text-sm mt-2 max-w-3xl">The original distribution was useful for exploration, while the redesign emphasizes medians and risk thresholds advisors can act on.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-zinc-300">
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Title</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Labels</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Hierarchy</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Layout</span>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-5 items-stretch">
+            <div class="p-4 rounded-xl bg-black/45 border border-zinc-800">
+              <h4 class="text-sm font-bold text-zinc-200">Original Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Range chart with a separate legend to decode the statistic.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignOriginalUnits"></canvas></div>
+            </div>
+            <div class="hidden lg:flex items-center text-red-400 font-black text-2xl">→</div>
+            <div class="p-4 rounded-xl bg-black/45 border border-red-900/60">
+              <h4 class="text-sm font-bold text-white">Redesigned Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Median-focused static bar chart with a risk benchmark at 3 units.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignUnits"></canvas></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 3</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Low grades and low completion reinforce academic risk</h3>
+              <p class="text-zinc-400 text-sm mt-2 max-w-3xl">The redesign replaces a correlation scan with a clearer ranked relationship chart so the strongest signals are visible first.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-zinc-300">
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Chart type</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Scale</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Legend</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Color contrast</span>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-5 items-stretch">
+            <div class="p-4 rounded-xl bg-black/45 border border-zinc-800">
+              <h4 class="text-sm font-bold text-zinc-200">Original Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Mixed positive and negative correlations in dataset order.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignOriginalCorrelation"></canvas></div>
+            </div>
+            <div class="hidden lg:flex items-center text-red-400 font-black text-2xl">→</div>
+            <div class="p-4 rounded-xl bg-black/45 border border-red-900/60">
+              <h4 class="text-sm font-bold text-white">Redesigned Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Ranked diverging bars with a zero baseline and plain-language labels.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignCorrelation"></canvas></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 4</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Older and evening students need contextual support</h3>
+              <p class="text-zinc-400 text-sm mt-2 max-w-3xl">The exploratory scatter showed variation, but the redesigned view summarizes the action point by age group and keeps the comparison readable.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-zinc-300">
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Chart type</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Labels</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Annotation</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Hierarchy</span>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-5 items-stretch">
+            <div class="p-4 rounded-xl bg-black/45 border border-zinc-800">
+              <h4 class="text-sm font-bold text-zinc-200">Original Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Scatterplot sample with overlapping points.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignOriginalAge"></canvas></div>
+            </div>
+            <div class="hidden lg:flex items-center text-red-400 font-black text-2xl">→</div>
+            <div class="p-4 rounded-xl bg-black/45 border border-red-900/60">
+              <h4 class="text-sm font-bold text-white">Redesigned Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Age-band dropout rates with the highest-risk group highlighted.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignAge"></canvas></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 5</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Missing academic activity can indicate disengagement</h3>
+              <p class="text-zinc-400 text-sm mt-2 max-w-3xl">The redesigned chart reduces clutter and uses direct labels to show that missing grade data is more concentrated among dropout records.</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] text-zinc-300">
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Title</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Legend</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Scale</span>
+              <span class="px-2 py-1 rounded bg-black/50 border border-zinc-800">Accessibility</span>
+            </div>
+          </div>
+          <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-5 items-stretch">
+            <div class="p-4 rounded-xl bg-black/45 border border-zinc-800">
+              <h4 class="text-sm font-bold text-zinc-200">Original Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Grouped bars across many fields.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignOriginalMissing"></canvas></div>
+            </div>
+            <div class="hidden lg:flex items-center text-red-400 font-black text-2xl">→</div>
+            <div class="p-4 rounded-xl bg-black/45 border border-red-900/60">
+              <h4 class="text-sm font-bold text-white">Redesigned Visualization</h4>
+              <p class="text-xs text-zinc-500 mt-1">Small set of academic fields with direct percentage labels.</p>
+              <div class="relative h-72 mt-4"><canvas id="redesignMissing"></canvas></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
   </main>
 
   <!-- Footer -->
@@ -584,6 +747,7 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       <div class="flex items-center gap-6">
         <a href="index.html#home" class="hover:text-white transition-colors">Home</a>
         <a href="index.html#research" class="hover:text-white transition-colors">Research</a>
+        <a href="models.html" class="hover:text-white transition-colors">Models</a>
         <a href="https://github.com/justatechdude/portfolio" target="_blank" class="hover:text-white transition-colors">GitHub</a>
       </div>
     </div>
@@ -1065,18 +1229,342 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       }
     });
 
+    const staticLabelPlugin = {
+      id: 'staticLabelPlugin',
+      afterDatasetsDraw(chart, args, options) {
+        const items = options?.items || [];
+        const { ctx, chartArea } = chart;
+        ctx.save();
+        items.forEach((item) => {
+          const meta = chart.getDatasetMeta(item.datasetIndex || 0);
+          const point = meta?.data?.[item.dataIndex || 0];
+          if (!point) return;
+          const pos = point.tooltipPosition();
+          const x = Math.min(Math.max(pos.x + (item.dx || 0), chartArea.left + 8), chartArea.right - 8);
+          const y = Math.min(Math.max(pos.y + (item.dy || 0), chartArea.top + 12), chartArea.bottom - 8);
+          ctx.fillStyle = item.color || '#f4f4f5';
+          ctx.font = item.font || '700 11px Inter, sans-serif';
+          ctx.textAlign = item.align || 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(item.text, x, y);
+        });
+        ctx.restore();
+      }
+    };
+
+    const staticGuidePlugin = {
+      id: 'staticGuidePlugin',
+      afterDraw(chart, args, options) {
+        if (!options?.xValue) return;
+        const { ctx, chartArea, scales } = chart;
+        const x = scales.x.getPixelForValue(options.xValue);
+        ctx.save();
+        ctx.strokeStyle = options.color || '#fca5a5';
+        ctx.setLineDash([5, 5]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(x, chartArea.top);
+        ctx.lineTo(x, chartArea.bottom);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = options.color || '#fca5a5';
+        ctx.font = '700 11px Inter, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(options.label || '', x + 6, chartArea.top + 12);
+        ctx.restore();
+      }
+    };
+
+    const redesignTooltip = { enabled: true };
+    const redesignTitle = (text, subtitle) => ({
+      legend: { display: false },
+      title: {
+        display: true,
+        text,
+        color: '#ffffff',
+        align: 'start',
+        font: { size: 14, weight: '800' },
+        padding: { bottom: 4 }
+      },
+      subtitle: {
+        display: Boolean(subtitle),
+        text: subtitle,
+        color: '#a1a1aa',
+        align: 'start',
+        font: { size: 11 },
+        padding: { bottom: 12 }
+      },
+      tooltip: redesignTooltip
+    });
+
+    new Chart(getCanvas('redesignOriginalTuition'), {
+      type: 'bar',
+      data: {
+        labels: ['Fees In Arrears', 'Fees Up To Date'],
+        datasets: [
+          { label: 'Dropout', data: [86.4, 23.8], backgroundColor: '#ef4444', borderRadius: 5 },
+          { label: 'Retained / Graduate', data: [13.6, 76.2], backgroundColor: '#f4f4f5', borderRadius: 5 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: sharedLegend, title: { display: true, text: 'Tuition Status and Outcome', color: '#ffffff' } },
+        scales: {
+          x: { stacked: true, grid: sharedGrid },
+          y: { stacked: true, grid: sharedGrid, max: 100, title: { display: true, text: 'Percent', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('redesignTuition'), {
+      type: 'bar',
+      data: {
+        labels: ['Fees in arrears', 'Fees up to date'],
+        datasets: [{ label: 'Dropout rate', data: [86.4, 23.8], backgroundColor: ['#ef4444', '#f4f4f5'], borderRadius: 8 }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          ...redesignTitle('Dropout rate jumps when tuition is unpaid', 'Share of students who dropped out, by tuition status'),
+          staticLabels: {
+            items: [
+              { dataIndex: 0, text: '86.4%', dx: -28, color: '#ffffff' },
+              { dataIndex: 1, text: '23.8%', dx: 28, color: '#ffffff' }
+            ]
+          }
+        },
+        scales: {
+          x: { grid: sharedGrid, min: 0, max: 100, title: { display: true, text: 'Dropout rate (%)', color: '#71717a' } },
+          y: { grid: { display: false }, ticks: { color: '#e4e4e7' } }
+        }
+      },
+      plugins: [staticLabelPlugin]
+    });
+
+    new Chart(getCanvas('redesignOriginalUnits'), {
+      type: 'bar',
+      data: {
+        labels: ['Dropout', 'Enrolled', 'Graduate'],
+        datasets: [
+          { label: 'Q1 to Q3 Approved Units', data: [[0, 2], [3, 5], [5, 6]], backgroundColor: ['rgba(239, 68, 68, 0.7)', 'rgba(113, 113, 122, 0.7)', 'rgba(244, 244, 245, 0.85)'], borderRadius: 6 },
+          { label: 'Median', data: [1, 4, 6], type: 'line', borderColor: '#ffffff', backgroundColor: '#ffffff', pointRadius: 5, tension: 0 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: sharedLegend, title: { display: true, text: 'Approved Units by Outcome', color: '#ffffff' } },
+        scales: {
+          x: { grid: sharedGrid },
+          y: { grid: sharedGrid, min: 0, max: 8, title: { display: true, text: 'Approved Units', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('redesignUnits'), {
+      type: 'bar',
+      data: {
+        labels: ['Dropout', 'Enrolled', 'Graduate'],
+        datasets: [{ label: 'Median approved units', data: [1, 4, 6], backgroundColor: ['#ef4444', '#a1a1aa', '#f4f4f5'], borderRadius: 8 }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          ...redesignTitle('Dropouts passed a median of only 1 first-semester unit', 'Median approved units; dashed line marks the advising threshold'),
+          staticLabels: {
+            items: [
+              { dataIndex: 0, text: '1 unit', dx: 32, color: '#ffffff', align: 'left' },
+              { dataIndex: 1, text: '4 units', dx: 32, color: '#ffffff', align: 'left' },
+              { dataIndex: 2, text: '6 units', dx: 32, color: '#ffffff', align: 'left' }
+            ]
+          },
+          staticGuide: { xValue: 3, label: 'Advising threshold', color: '#fca5a5' }
+        },
+        scales: {
+          x: { grid: sharedGrid, min: 0, max: 8, title: { display: true, text: 'Median units approved', color: '#71717a' } },
+          y: { grid: { display: false }, ticks: { color: '#e4e4e7' } }
+        }
+      },
+      plugins: [staticLabelPlugin, staticGuidePlugin]
+    });
+
+    new Chart(getCanvas('redesignOriginalCorrelation'), {
+      type: 'bar',
+      data: {
+        labels: ['Units vs Grade', 'Admission vs Grade', 'Tuition vs Retention', 'Age vs Dropout', 'Units vs Dropout'],
+        datasets: [{
+          label: 'Correlation Strength',
+          data: [0.74, 0.31, 0.58, 0.22, -0.69],
+          backgroundColor: ['#f4f4f5', '#a1a1aa', '#fca5a5', '#ef4444', '#991b1b'],
+          borderRadius: 6
+        }]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: { display: false }, title: { display: true, text: 'Correlation Matrix', color: '#ffffff' } },
+        scales: {
+          x: { grid: sharedGrid, ticks: { maxRotation: 25, minRotation: 20 } },
+          y: { grid: sharedGrid, min: -1, max: 1 }
+        }
+      }
+    });
+
+    new Chart(getCanvas('redesignCorrelation'), {
+      type: 'bar',
+      data: {
+        labels: ['Approved units + grade', 'Approved units + dropout', 'Tuition paid + retention', 'Admission + grade', 'Age + dropout'],
+        datasets: [{
+          label: 'Relationship strength',
+          data: [0.74, -0.69, 0.58, 0.31, 0.22],
+          backgroundColor: ['#f4f4f5', '#ef4444', '#fca5a5', '#a1a1aa', '#71717a'],
+          borderRadius: 8
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          ...redesignTitle('Academic progress variables carry the strongest relationships', 'Ranked correlations from strongest to weakest'),
+          staticLabels: {
+            items: [
+              { dataIndex: 0, text: '+0.74', dx: -28, color: '#111111' },
+              { dataIndex: 1, text: '-0.69', dx: 30, color: '#ffffff' },
+              { dataIndex: 2, text: '+0.58', dx: -28, color: '#111111' }
+            ]
+          }
+        },
+        scales: {
+          x: { grid: sharedGrid, min: -1, max: 1, title: { display: true, text: 'Correlation coefficient', color: '#71717a' } },
+          y: { grid: { display: false }, ticks: { color: '#e4e4e7' } }
+        }
+      },
+      plugins: [staticLabelPlugin]
+    });
+
+    new Chart(getCanvas('redesignOriginalAge'), {
+      type: 'scatter',
+      data: {
+        datasets: [
+          { label: 'Dropout', data: dropoutPoints.slice(0, 28), backgroundColor: '#ef4444', borderColor: '#b91c1c', pointRadius: 4 },
+          { label: 'Graduate / Retained', data: graduatePoints.slice(0, 28), backgroundColor: '#ffffff', borderColor: '#a1a1aa', pointRadius: 4 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: sharedLegend, title: { display: true, text: 'Age vs. Semester Grade', color: '#ffffff' } },
+        scales: {
+          x: { grid: sharedGrid, min: 16, max: 52, title: { display: true, text: 'Age', color: '#71717a' } },
+          y: { grid: sharedGrid, min: 0, max: 20, title: { display: true, text: '1st Sem Grade', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('redesignAge'), {
+      type: 'bar',
+      data: {
+        labels: ['17-20', '21-24', '25-34', '35+'],
+        datasets: [{ label: 'Dropout rate', data: [27.4, 34.8, 43.2, 49.7], backgroundColor: ['#f4f4f5', '#fca5a5', '#ef4444', '#991b1b'], borderRadius: 8 }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          ...redesignTitle('Dropout risk rises for older students', 'Dropout rate by age at enrollment'),
+          staticLabels: {
+            items: [
+              { dataIndex: 0, text: '27.4%', dy: -14, color: '#ffffff' },
+              { dataIndex: 1, text: '34.8%', dy: -14, color: '#ffffff' },
+              { dataIndex: 2, text: '43.2%', dy: -14, color: '#ffffff' },
+              { dataIndex: 3, text: '49.7%', dy: -14, color: '#ffffff' }
+            ]
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, title: { display: true, text: 'Age group', color: '#71717a' } },
+          y: { grid: sharedGrid, min: 0, max: 60, title: { display: true, text: 'Dropout rate (%)', color: '#71717a' } }
+        }
+      },
+      plugins: [staticLabelPlugin]
+    });
+
+    new Chart(getCanvas('redesignOriginalMissing'), {
+      type: 'bar',
+      data: {
+        labels: ['Admission Grade', 'Sem 1 Grade', 'Sem 2 Grade', 'Approved Units', 'Economic Fields'],
+        datasets: [
+          { label: 'Dropout Records', data: [0.2, 2.9, 4.1, 1.3, 0.4], backgroundColor: '#ef4444', borderRadius: 6 },
+          { label: 'Non-Dropout Records', data: [0.1, 0.8, 1.1, 0.4, 0.2], backgroundColor: '#f4f4f5', borderRadius: 6 }
+        ]
+      },
+      options: {
+        ...baseChartOptions,
+        plugins: { legend: sharedLegend, title: { display: true, text: 'Missing-Data Pattern', color: '#ffffff' } },
+        scales: {
+          x: { grid: sharedGrid, ticks: { maxRotation: 25, minRotation: 20 } },
+          y: { grid: sharedGrid, title: { display: true, text: 'Missing Values (%)', color: '#71717a' } }
+        }
+      }
+    });
+
+    new Chart(getCanvas('redesignMissing'), {
+      type: 'bar',
+      data: {
+        labels: ['Sem 2 grade', 'Sem 1 grade', 'Approved units'],
+        datasets: [
+          { label: 'Dropout records', data: [4.1, 2.9, 1.3], backgroundColor: '#ef4444', borderRadius: 8 },
+          { label: 'Non-dropout records', data: [1.1, 0.8, 0.4], backgroundColor: '#f4f4f5', borderRadius: 8 }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          ...redesignTitle('Missing academic data is concentrated among dropouts', 'Percent of records missing key academic values'),
+          legend: { position: 'top', labels: { color: '#e4e4e7', usePointStyle: true, boxWidth: 8 } },
+          staticLabels: {
+            items: [
+              { datasetIndex: 0, dataIndex: 0, text: '4.1%', dy: -14, color: '#ffffff' },
+              { datasetIndex: 0, dataIndex: 1, text: '2.9%', dy: -14, color: '#ffffff' },
+              { datasetIndex: 1, dataIndex: 0, text: '1.1%', dy: -14, color: '#ffffff' }
+            ]
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { color: '#e4e4e7' } },
+          y: { grid: sharedGrid, min: 0, max: 5, title: { display: true, text: 'Missing values (%)', color: '#71717a' } }
+        }
+      },
+      plugins: [staticLabelPlugin]
+    });
+
     const tabButtons = document.querySelectorAll('[data-tab-target]');
     const tabPanels = document.querySelectorAll('.tab-panel');
+    function activateTab(targetId, updateHash = true) {
+      const targetButton = document.querySelector(`[data-tab-target="${targetId}"]`);
+      if (!targetButton) return;
+      tabButtons.forEach((tab) => tab.setAttribute('aria-selected', String(tab === targetButton)));
+      tabPanels.forEach((panel) => panel.classList.toggle('hidden', panel.id !== targetId));
+      if (updateHash) history.replaceState(null, '', `#${targetId}`);
+      window.setTimeout(() => {
+        Object.values(Chart.instances).forEach((chart) => chart.resize());
+      }, 60);
+    }
+
     tabButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const targetId = button.dataset.tabTarget;
-        tabButtons.forEach((tab) => tab.setAttribute('aria-selected', String(tab === button)));
-        tabPanels.forEach((panel) => panel.classList.toggle('hidden', panel.id !== targetId));
-        window.setTimeout(() => {
-          Object.values(Chart.instances).forEach((chart) => chart.resize());
-        }, 60);
-      });
+      button.addEventListener('click', () => activateTab(button.dataset.tabTarget));
     });
+
+    window.addEventListener('hashchange', () => {
+      const targetId = window.location.hash.replace('#', '');
+      if (targetId) activateTab(targetId, false);
+    });
+
+    const initialTab = window.location.hash.replace('#', '');
+    if (initialTab) activateTab(initialTab, false);
   </script>
 
   <!-- Ambient Background Music Player (Self-Injecting) -->

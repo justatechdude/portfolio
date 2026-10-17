@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Accuracy Comparison | Kervens Jean-Charles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              red: '#ef4444',
+              crimson: '#dc2626',
+              darkred: '#991b1b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050505;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    .glow-red-sm {
+      box-shadow: 0 0 15px -3px rgba(239, 68, 68, 0.3);
+    }
+    .model-card {
+      background: linear-gradient(180deg, #121216 0%, #0c0c0f 100%);
+      border: 1px solid #27272a;
+    }
+    .tree-node {
+      background: #09090b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      padding: 1rem;
+    }
+    .tree-node.best {
+      border-color: rgba(239, 68, 68, 0.8);
+      box-shadow: 0 0 18px -8px rgba(239, 68, 68, 0.8);
+    }
+    .tree-branch {
+      position: relative;
+    }
+    .tree-branch::before {
+      content: "";
+      position: absolute;
+      top: -1.25rem;
+      left: 50%;
+      width: 1px;
+      height: 1.25rem;
+      background: #3f3f46;
+    }
+    .accuracy-bar {
+      height: 0.65rem;
+      border-radius: 999px;
+      background: #27272a;
+      overflow: hidden;
+    }
+    .accuracy-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #991b1b 0%, #ef4444 70%, #f4f4f5 100%);
+    }
+  </style>
+</head>
+
+<body class="bg-[#050505] text-white selection:bg-red-600 selection:text-white antialiased min-h-screen">
+
+  <nav class="fixed top-0 w-full bg-[#09090b]/90 backdrop-blur-md border-b border-zinc-800/80 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html#home" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white group">
+        <span class="w-2.5 h-2.5 rounded-full bg-red-600 group-hover:scale-125 transition-transform duration-300"></span>
+        <span>Kervens <span class="text-red-500">Jean-Charles</span></span>
+      </a>
+
+      <div class="hidden md:flex items-center space-x-7 text-sm font-medium">
+        <a href="index.html#home" class="text-zinc-300 hover:text-white transition-colors">Home</a>
+        <a href="index.html#research" class="text-zinc-300 hover:text-white transition-colors">Research Topic</a>
+        <a href="visualizations.html" class="text-zinc-300 hover:text-white transition-colors">Dataset Charts</a>
+        <a href="models.html" class="flex items-center gap-1.5 text-white font-semibold px-3 py-1.5 rounded-md bg-red-600/90 border border-red-500 glow-red-sm">
+          Models
+        </a>
+        <a href="index.html#contact" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-lg text-xs font-medium tracking-wider uppercase transition-all">
+          Contact
+        </a>
+      </div>
+
+      <button id="menu-btn" aria-label="Toggle Navigation" class="md:hidden text-zinc-300 hover:text-white focus:outline-none p-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-[#0c0c0e] border-b border-zinc-800 px-5 pt-3 pb-5 space-y-3">
+      <a href="index.html#home" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Home</a>
+      <a href="index.html#research" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Research Topic</a>
+      <a href="visualizations.html" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Dataset Charts</a>
+      <a href="models.html" class="block py-2 text-red-400 font-bold">Models</a>
+      <a href="index.html#contact" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Contact</a>
+    </div>
+  </nav>
+
+  <header class="pt-28 pb-12 px-4 border-b border-zinc-900 bg-[#070709] relative overflow-hidden">
+    <div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-950/60 border border-red-800 text-red-400 text-xs font-semibold uppercase tracking-wider mb-4">
+            <span>Machine Learning Models</span>
+            <span>•</span>
+            <span>Accuracy Comparison</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Student Retention Model Results
+          </h1>
+          <p class="text-zinc-400 max-w-3xl text-sm sm:text-base mt-3 leading-relaxed">
+            Standalone summary of the model candidates tested for predicting dropout, enrollment, and graduation outcomes. The Kaggle dataset is the data source; the accuracy scores below are the portfolio comparison results.
+          </p>
+          <div class="flex flex-wrap gap-3 mt-5">
+            <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition-all glow-red-sm">
+              Kaggle Dataset Source
+            </a>
+            <a href="#model-explanations" class="px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
+              Read Model Explanations
+            </a>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
+          <div class="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800">
+            <div class="text-2xl font-black text-red-500">8</div>
+            <div class="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Models</div>
+          </div>
+          <div class="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800">
+            <div class="text-2xl font-black text-white">88.4%</div>
+            <div class="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Best Accuracy</div>
+          </div>
+          <div class="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800 col-span-2 sm:col-span-1">
+            <div class="text-2xl font-black text-red-400">RF</div>
+            <div class="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Best Model</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-12">
+    <section class="model-card p-6 sm:p-8 rounded-2xl">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Accuracy Comparison Tree</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">From baseline to best-performing classifier</h2>
+          <p class="text-zinc-400 text-sm mt-2 max-w-3xl">
+            The tree groups models by approach and highlights the strongest result. This makes it easier to compare simple baselines, linear models, distance/probability methods, tree methods, and ensemble models.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="visualizations.html" class="self-start md:self-auto px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all">
+            View Dataset Charts
+          </a>
+          <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all">
+            Open Kaggle Data
+          </a>
+        </div>
+      </div>
+
+      <div class="space-y-8">
+        <div class="tree-node max-w-xl mx-auto text-center">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Prediction Goal</div>
+          <div class="text-lg font-black text-white mt-1">Student outcome classification</div>
+          <div class="text-xs text-zinc-500 mt-1">Dropout, Enrolled, or Graduate</div>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-5">
+          <div class="tree-branch space-y-4">
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Baseline</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Majority Class</span>
+                <span class="text-red-400 font-black">50.0%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 50%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Reference point before machine learning.</p>
+            </div>
+          </div>
+
+          <div class="tree-branch space-y-4">
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Linear</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Logistic Regression</span>
+                <span class="text-red-400 font-black">82.1%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 82.1%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Strong, readable baseline for feature effects.</p>
+            </div>
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Margin</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Support Vector Machine</span>
+                <span class="text-red-400 font-black">84.9%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 84.9%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Good separation, less transparent than logistic regression.</p>
+            </div>
+          </div>
+
+          <div class="tree-branch space-y-4">
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Probability</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Naive Bayes</span>
+                <span class="text-red-400 font-black">73.6%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 73.6%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Fast comparison model with simple assumptions.</p>
+            </div>
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Distance</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">K-Nearest Neighbors</span>
+                <span class="text-red-400 font-black">79.6%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 79.6%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Useful benchmark, sensitive to scaling.</p>
+            </div>
+          </div>
+
+          <div class="tree-branch space-y-4">
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Single Tree</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Decision Tree</span>
+                <span class="text-red-400 font-black">83.0%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 83%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Readable rules, more prone to overfitting.</p>
+            </div>
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Boosted Trees</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Gradient Boosting</span>
+                <span class="text-red-400 font-black">87.2%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 87.2%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">High accuracy by combining many weak trees.</p>
+            </div>
+            <div class="tree-node best">
+              <div class="text-xs text-red-400 uppercase font-bold">Best Ensemble</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Random Forest</span>
+                <span class="text-red-400 font-black">88.4%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 88.4%;"></div></div>
+              <p class="text-xs text-zinc-400 mt-3">Best balance of accuracy, stability, and feature insight.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="model-explanations" class="model-card p-6 sm:p-8 rounded-2xl">
+      <div class="max-w-3xl mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Model Explanations</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">What each model does and why it matters</h2>
+        <p class="text-zinc-400 text-sm mt-2 leading-relaxed">
+          Each model uses the same student-retention dataset but learns patterns differently. Comparing them helps show whether the problem is handled better by simple rules, linear relationships, distance-based matching, or tree-based ensembles.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div class="p-5 rounded-xl bg-black/50 border border-red-900/50">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Random Forest</h3>
+            <span class="text-red-400 font-black text-sm">88.4%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Builds many decision trees and combines their votes. It performs best because it can capture non-linear patterns across grades, approved units, tuition status, scholarships, age, and schedule while staying more stable than one tree.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Gradient Boosting</h3>
+            <span class="text-red-400 font-black text-sm">87.2%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Builds trees one after another, with each new tree correcting mistakes from the previous trees. It is strong for prediction, but it can be more sensitive to tuning than Random Forest.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Support Vector Machine</h3>
+            <span class="text-red-400 font-black text-sm">84.9%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Finds boundaries that separate outcome groups as cleanly as possible. It works well when groups have a clear margin, but its decisions are harder to explain to advisors than tree rules.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Decision Tree</h3>
+            <span class="text-red-400 font-black text-sm">83.0%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Splits students into branches using rules such as tuition paid, approved units, and grades. It is easy to understand, but a single tree can overfit and miss broader patterns.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Logistic Regression</h3>
+            <span class="text-red-400 font-black text-sm">82.1%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Estimates the probability of each student outcome from weighted input features. It is useful because it is readable and shows which variables push risk higher or lower.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">K-Nearest Neighbors</h3>
+            <span class="text-red-400 font-black text-sm">79.6%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Classifies a student by looking at the most similar students in the training data. It is intuitive, but it depends heavily on scaled features and can struggle when many variables interact.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Naive Bayes</h3>
+            <span class="text-red-400 font-black text-sm">73.6%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Uses probability rules to estimate the most likely outcome. It is fast and simple, but its independence assumptions are limiting because student factors like grades and approved units are related.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Majority Class Baseline</h3>
+            <span class="text-red-400 font-black text-sm">50.0%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Always predicts the most common outcome. It is not a useful final model, but it sets the minimum benchmark every real model should beat.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid lg:grid-cols-[1.2fr_0.8fr] gap-8">
+      <div class="model-card p-6 sm:p-7 rounded-2xl">
+        <h2 class="text-xl font-black text-white">All Model Scores</h2>
+        <p class="text-zinc-400 text-sm mt-1 mb-5">Sorted by accuracy so the strongest model is visible immediately.</p>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-left text-xs sm:text-sm">
+            <thead class="text-zinc-400 uppercase tracking-wider border-b border-zinc-800">
+              <tr>
+                <th class="py-3 pr-4">Rank</th>
+                <th class="py-3 pr-4">Model</th>
+                <th class="py-3 pr-4">Model Family</th>
+                <th class="py-3 pr-4">Accuracy</th>
+                <th class="py-3 pr-4">Use Case</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-800/80 text-zinc-300">
+              <tr><td class="py-3 pr-4 font-bold text-red-400">1</td><td class="py-3 pr-4 font-semibold text-white">Random Forest</td><td class="py-3 pr-4">Ensemble trees</td><td class="py-3 pr-4">88.4%</td><td class="py-3 pr-4">Final classifier candidate</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">2</td><td class="py-3 pr-4 font-semibold text-white">Gradient Boosting</td><td class="py-3 pr-4">Boosted trees</td><td class="py-3 pr-4">87.2%</td><td class="py-3 pr-4">High-performing comparison</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">3</td><td class="py-3 pr-4 font-semibold text-white">Support Vector Machine</td><td class="py-3 pr-4">Margin classifier</td><td class="py-3 pr-4">84.9%</td><td class="py-3 pr-4">Separation benchmark</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">4</td><td class="py-3 pr-4 font-semibold text-white">Decision Tree</td><td class="py-3 pr-4">Single tree</td><td class="py-3 pr-4">83.0%</td><td class="py-3 pr-4">Readable rule baseline</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">5</td><td class="py-3 pr-4 font-semibold text-white">Logistic Regression</td><td class="py-3 pr-4">Linear model</td><td class="py-3 pr-4">82.1%</td><td class="py-3 pr-4">Interpretability benchmark</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">6</td><td class="py-3 pr-4 font-semibold text-white">K-Nearest Neighbors</td><td class="py-3 pr-4">Distance model</td><td class="py-3 pr-4">79.6%</td><td class="py-3 pr-4">Similarity-based comparison</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">7</td><td class="py-3 pr-4 font-semibold text-white">Naive Bayes</td><td class="py-3 pr-4">Probability model</td><td class="py-3 pr-4">73.6%</td><td class="py-3 pr-4">Fast lightweight model</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">8</td><td class="py-3 pr-4 font-semibold text-white">Majority Class Baseline</td><td class="py-3 pr-4">Baseline</td><td class="py-3 pr-4">50.0%</td><td class="py-3 pr-4">Minimum comparison point</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <aside class="model-card p-6 sm:p-7 rounded-2xl">
+        <h2 class="text-xl font-black text-white">Model Takeaway</h2>
+        <div class="mt-5 space-y-4 text-sm">
+          <div class="p-4 rounded-xl bg-black/50 border border-red-900/50">
+            <div class="text-xs text-red-400 uppercase font-bold tracking-wider">Best model</div>
+            <p class="text-zinc-300 mt-1">Random Forest has the top accuracy at 88.4% and is the best candidate for the final student-risk classifier.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-black/50 border border-zinc-800">
+            <div class="text-xs text-red-400 uppercase font-bold tracking-wider">Why it wins</div>
+            <p class="text-zinc-300 mt-1">It captures non-linear patterns across tuition status, approved units, grades, age, scholarship status, and class schedule.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-black/50 border border-zinc-800">
+            <div class="text-xs text-red-400 uppercase font-bold tracking-wider">Source note</div>
+            <p class="text-zinc-300 mt-1">
+              The
+              <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2">Kaggle page</a>
+              supplies the dataset. The model scores are presented as project comparison results, not official Kaggle leaderboard results.
+            </p>
+          </div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="py-10 px-4 bg-black border-t border-zinc-900 text-center text-xs text-zinc-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-red-600"></span>
+        <span class="text-zinc-300 font-semibold">Kervens Jean-Charles</span>
+        <span>• Academic & Analytics Portfolio</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="index.html#home" class="hover:text-white transition-colors">Home</a>
+        <a href="visualizations.html" class="hover:text-white transition-colors">Charts</a>
+        <a href="https://github.com/justatechdude/portfolio" target="_blank" class="hover:text-white transition-colors">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+  <script src="music-player.js"></script>
+</body>
+
+</html>
