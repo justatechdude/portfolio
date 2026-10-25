@@ -73,6 +73,150 @@
       border-radius: inherit;
       background: linear-gradient(90deg, #991b1b 0%, #ef4444 70%, #f4f4f5 100%);
     }
+    .colab-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-top: 0.9rem;
+      padding: 0.55rem 0.8rem;
+      border-radius: 0.75rem;
+      background: rgba(127, 29, 29, 0.45);
+      border: 1px solid rgba(239, 68, 68, 0.45);
+      color: #fecaca;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: all 160ms ease;
+    }
+    .colab-link:hover {
+      background: rgba(220, 38, 38, 0.85);
+      border-color: rgba(248, 113, 113, 0.9);
+      color: #ffffff;
+    }
+    .chart-shell {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid #27272a;
+      border-radius: 1rem;
+    }
+    .bar-track {
+      height: 1rem;
+      border-radius: 999px;
+      background: #18181b;
+      border: 1px solid #27272a;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #7f1d1d 0%, #ef4444 78%, #fecaca 100%);
+    }
+    .heat-cell {
+      min-width: 4.75rem;
+      border-radius: 0.65rem;
+      padding: 0.65rem 0.5rem;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.78rem;
+    }
+    .heat-strong {
+      background: #dc2626;
+    }
+    .heat-good {
+      background: #b91c1c;
+    }
+    .heat-mid {
+      background: #7f1d1d;
+    }
+    .heat-low {
+      background: #3f1d1d;
+    }
+    .confusion-wrap {
+      display: grid;
+      grid-template-columns: auto minmax(20rem, 1fr) 2.5rem;
+      gap: 0.9rem;
+      align-items: center;
+      min-width: 35rem;
+    }
+    .confusion-y-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      color: #a1a1aa;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .confusion-grid {
+      display: grid;
+      grid-template-columns: 5.25rem repeat(3, minmax(5.25rem, 1fr));
+      grid-template-rows: 2rem repeat(3, 5.5rem) 2rem;
+      gap: 0.15rem;
+      align-items: stretch;
+    }
+    .confusion-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d4d4d8;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .confusion-axis {
+      grid-column: 2 / 5;
+      color: #a1a1aa;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .confusion-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      font-size: 1.45rem;
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
+    }
+    .confusion-cell.low {
+      color: #f4f4f5;
+      background: #301616;
+    }
+    .confusion-cell.mid-low {
+      background: #5f1e1e;
+    }
+    .confusion-cell.mid {
+      background: #8b1f1f;
+    }
+    .confusion-cell.high {
+      background: #dc2626;
+    }
+    .confusion-cell.peak {
+      background: #7f0015;
+      box-shadow: inset 0 0 0 1px rgba(254, 202, 202, 0.2);
+    }
+    .color-scale {
+      height: 18rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #7f0015 0%, #dc2626 40%, #fb7185 65%, #fee2e2 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+    .scale-labels {
+      height: 18rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #a1a1aa;
+      font-size: 0.65rem;
+      font-weight: 800;
+    }
   </style>
 </head>
 
@@ -88,7 +232,7 @@
       <div class="hidden md:flex items-center space-x-7 text-sm font-medium">
         <a href="index.html#home" class="text-zinc-300 hover:text-white transition-colors">Home</a>
         <a href="index.html#research" class="text-zinc-300 hover:text-white transition-colors">Research Topic</a>
-        <a href="visualizations.html" class="text-zinc-300 hover:text-white transition-colors">Dataset Charts</a>
+        <a href="visualizations.html" class="text-zinc-300 hover:text-white transition-colors">Assignments</a>
         <a href="models.html" class="flex items-center gap-1.5 text-white font-semibold px-3 py-1.5 rounded-md bg-red-600/90 border border-red-500 glow-red-sm">
           Models
         </a>
@@ -107,7 +251,7 @@
     <div id="mobile-menu" class="hidden md:hidden bg-[#0c0c0e] border-b border-zinc-800 px-5 pt-3 pb-5 space-y-3">
       <a href="index.html#home" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Home</a>
       <a href="index.html#research" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Research Topic</a>
-      <a href="visualizations.html" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Dataset Charts</a>
+      <a href="visualizations.html" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Assignments</a>
       <a href="models.html" class="block py-2 text-red-400 font-bold">Models</a>
       <a href="index.html#contact" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Contact</a>
     </div>
@@ -136,16 +280,19 @@
             <a href="#model-explanations" class="px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
               Read Model Explanations
             </a>
+            <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 text-xs font-bold uppercase tracking-wider rounded-xl transition-all">
+              Open Google Colab
+            </a>
           </div>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center">
           <div class="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800">
-            <div class="text-2xl font-black text-red-500">8</div>
+            <div class="text-2xl font-black text-red-500">10</div>
             <div class="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Models</div>
           </div>
           <div class="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800">
-            <div class="text-2xl font-black text-white">88.4%</div>
+            <div class="text-2xl font-black text-white">77.9%</div>
             <div class="text-[11px] text-zinc-400 uppercase tracking-wider font-semibold">Best Accuracy</div>
           </div>
           <div class="p-4 rounded-xl bg-zinc-900/70 border border-zinc-800 col-span-2 sm:col-span-1">
@@ -169,10 +316,13 @@
         </div>
         <div class="flex flex-wrap gap-3">
           <a href="visualizations.html" class="self-start md:self-auto px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all">
-            View Dataset Charts
+            View Assignments
           </a>
           <a href="https://www.kaggle.com/datasets/thedevastator/higher-education-predictors-of-student-retention" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-4 py-2.5 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all">
             Open Kaggle Data
+          </a>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-semibold tracking-wider uppercase transition-all glow-red-sm">
+            Open Colab Notebook
           </a>
         </div>
       </div>
@@ -190,10 +340,11 @@
               <div class="text-xs text-zinc-500 uppercase font-bold">Baseline</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Majority Class</span>
-                <span class="text-red-400 font-black">50.0%</span>
+                <span class="text-red-400 font-black">49.9%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 50%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 49.9%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">Reference point before machine learning.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
           </div>
 
@@ -202,19 +353,21 @@
               <div class="text-xs text-zinc-500 uppercase font-bold">Linear</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Logistic Regression</span>
-                <span class="text-red-400 font-black">82.1%</span>
+                <span class="text-red-400 font-black">75.8%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 82.1%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 75.8%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">Strong, readable baseline for feature effects.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
             <div class="tree-node">
               <div class="text-xs text-zinc-500 uppercase font-bold">Margin</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Support Vector Machine</span>
-                <span class="text-red-400 font-black">84.9%</span>
+                <span class="text-red-400 font-black">75.9%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 84.9%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 75.9%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">Good separation, less transparent than logistic regression.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
           </div>
 
@@ -223,19 +376,21 @@
               <div class="text-xs text-zinc-500 uppercase font-bold">Probability</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Naive Bayes</span>
-                <span class="text-red-400 font-black">73.6%</span>
+                <span class="text-red-400 font-black">66.7%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 73.6%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 66.7%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">Fast comparison model with simple assumptions.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
             <div class="tree-node">
               <div class="text-xs text-zinc-500 uppercase font-bold">Distance</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">K-Nearest Neighbors</span>
-                <span class="text-red-400 font-black">79.6%</span>
+                <span class="text-red-400 font-black">69.7%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 79.6%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 69.7%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">Useful benchmark, sensitive to scaling.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
           </div>
 
@@ -244,28 +399,51 @@
               <div class="text-xs text-zinc-500 uppercase font-bold">Single Tree</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Decision Tree</span>
-                <span class="text-red-400 font-black">83.0%</span>
+                <span class="text-red-400 font-black">73.4%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 83%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 73.4%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">Readable rules, more prone to overfitting.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
             <div class="tree-node">
               <div class="text-xs text-zinc-500 uppercase font-bold">Boosted Trees</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Gradient Boosting</span>
-                <span class="text-red-400 font-black">87.2%</span>
+                <span class="text-red-400 font-black">76.2%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 87.2%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 76.2%;"></div></div>
               <p class="text-xs text-zinc-500 mt-3">High accuracy by combining many weak trees.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
+            </div>
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Randomized Trees</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Extra Trees</span>
+                <span class="text-red-400 font-black">76.7%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 76.7%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Randomized split choices create a strong ensemble comparison.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
+            </div>
+            <div class="tree-node">
+              <div class="text-xs text-zinc-500 uppercase font-bold">Histogram Boosting</div>
+              <div class="flex items-center justify-between gap-3 mt-2">
+                <span class="font-bold text-white">Hist. Gradient Boosting</span>
+                <span class="text-red-400 font-black">76.7%</span>
+              </div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 76.7%;"></div></div>
+              <p class="text-xs text-zinc-500 mt-3">Efficient boosted-tree variant with strong macro F1.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
             <div class="tree-node best">
               <div class="text-xs text-red-400 uppercase font-bold">Best Ensemble</div>
               <div class="flex items-center justify-between gap-3 mt-2">
                 <span class="font-bold text-white">Random Forest</span>
-                <span class="text-red-400 font-black">88.4%</span>
+                <span class="text-red-400 font-black">77.9%</span>
               </div>
-              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 88.4%;"></div></div>
+              <div class="accuracy-bar mt-3"><div class="accuracy-fill" style="width: 77.9%;"></div></div>
               <p class="text-xs text-zinc-400 mt-3">Best balance of accuracy, stability, and feature insight.</p>
+              <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
             </div>
           </div>
         </div>
@@ -285,81 +463,196 @@
         <div class="p-5 rounded-xl bg-black/50 border border-red-900/50">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Random Forest</h3>
-            <span class="text-red-400 font-black text-sm">88.4%</span>
+            <span class="text-red-400 font-black text-sm">77.9%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Builds many decision trees and combines their votes. It performs best because it can capture non-linear patterns across grades, approved units, tuition status, scholarships, age, and schedule while staying more stable than one tree.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Gradient Boosting</h3>
-            <span class="text-red-400 font-black text-sm">87.2%</span>
+            <span class="text-red-400 font-black text-sm">76.2%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Builds trees one after another, with each new tree correcting mistakes from the previous trees. It is strong for prediction, but it can be more sensitive to tuning than Random Forest.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Extra Trees</h3>
+            <span class="text-red-400 font-black text-sm">76.7%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Builds many highly randomized trees. It is useful as a comparison against Random Forest because it tests whether stronger randomization improves generalization.
+          </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
+        </div>
+
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="flex items-center justify-between gap-3">
+            <h3 class="font-black text-white">Histogram Gradient Boosting</h3>
+            <span class="text-red-400 font-black text-sm">76.7%</span>
+          </div>
+          <p class="text-zinc-400 text-xs leading-relaxed mt-3">
+            Uses binned numeric features to train boosted trees efficiently. It tied Extra Trees on accuracy and produced the strongest macro F1 among the comparison models.
+          </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Support Vector Machine</h3>
-            <span class="text-red-400 font-black text-sm">84.9%</span>
+            <span class="text-red-400 font-black text-sm">75.9%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Finds boundaries that separate outcome groups as cleanly as possible. It works well when groups have a clear margin, but its decisions are harder to explain to advisors than tree rules.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Decision Tree</h3>
-            <span class="text-red-400 font-black text-sm">83.0%</span>
+            <span class="text-red-400 font-black text-sm">73.4%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Splits students into branches using rules such as tuition paid, approved units, and grades. It is easy to understand, but a single tree can overfit and miss broader patterns.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Logistic Regression</h3>
-            <span class="text-red-400 font-black text-sm">82.1%</span>
+            <span class="text-red-400 font-black text-sm">75.8%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Estimates the probability of each student outcome from weighted input features. It is useful because it is readable and shows which variables push risk higher or lower.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">K-Nearest Neighbors</h3>
-            <span class="text-red-400 font-black text-sm">79.6%</span>
+            <span class="text-red-400 font-black text-sm">69.7%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Classifies a student by looking at the most similar students in the training data. It is intuitive, but it depends heavily on scaled features and can struggle when many variables interact.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Naive Bayes</h3>
-            <span class="text-red-400 font-black text-sm">73.6%</span>
+            <span class="text-red-400 font-black text-sm">66.7%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Uses probability rules to estimate the most likely outcome. It is fast and simple, but its independence assumptions are limiting because student factors like grades and approved units are related.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
         </div>
 
         <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
           <div class="flex items-center justify-between gap-3">
             <h3 class="font-black text-white">Majority Class Baseline</h3>
-            <span class="text-red-400 font-black text-sm">50.0%</span>
+            <span class="text-red-400 font-black text-sm">49.9%</span>
           </div>
           <p class="text-zinc-400 text-xs leading-relaxed mt-3">
             Always predicts the most common outcome. It is not a useful final model, but it sets the minimum benchmark every real model should beat.
           </p>
+          <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="colab-link">Open in Colab</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="model-card p-6 sm:p-8 rounded-2xl">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-7">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Notebook Visuals</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-white mt-2">Accuracy bar graph and confusion matrix</h2>
+          <p class="text-zinc-400 text-sm mt-2 max-w-3xl">
+            These summaries mirror the 10-model Colab run on the student-retention dataset, using model accuracy and the Random Forest confusion matrix.
+          </p>
+        </div>
+        <a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="self-start lg:self-auto px-4 py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-semibold tracking-wider uppercase transition-all glow-red-sm">
+          Open Colab Charts
+        </a>
+      </div>
+
+      <div class="grid xl:grid-cols-[1.05fr_0.95fr] gap-6">
+        <div class="chart-shell p-5 sm:p-6">
+          <div class="flex items-center justify-between gap-3 mb-5">
+            <div>
+              <h3 class="text-lg font-black text-white">Accuracy by Model</h3>
+              <p class="text-xs text-zinc-500 mt-1">Holdout accuracy from the notebook results.</p>
+            </div>
+            <span class="text-xs text-red-400 font-bold uppercase tracking-wider">Accuracy</span>
+          </div>
+          <div class="space-y-4">
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Random Forest</span><div class="bar-track"><div class="bar-fill" style="width: 77.9%;"></div></div><span class="text-red-300 font-black text-right">77.9%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Extra Trees</span><div class="bar-track"><div class="bar-fill" style="width: 76.7%;"></div></div><span class="text-red-300 font-black text-right">76.7%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Hist. Gradient Boosting</span><div class="bar-track"><div class="bar-fill" style="width: 76.7%;"></div></div><span class="text-red-300 font-black text-right">76.7%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Gradient Boosting</span><div class="bar-track"><div class="bar-fill" style="width: 76.2%;"></div></div><span class="text-red-300 font-black text-right">76.2%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">SVM</span><div class="bar-track"><div class="bar-fill" style="width: 75.9%;"></div></div><span class="text-red-300 font-black text-right">75.9%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Logistic Regression</span><div class="bar-track"><div class="bar-fill" style="width: 75.8%;"></div></div><span class="text-red-300 font-black text-right">75.8%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Decision Tree</span><div class="bar-track"><div class="bar-fill" style="width: 73.4%;"></div></div><span class="text-red-300 font-black text-right">73.4%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">KNN</span><div class="bar-track"><div class="bar-fill" style="width: 69.7%;"></div></div><span class="text-red-300 font-black text-right">69.7%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Naive Bayes</span><div class="bar-track"><div class="bar-fill" style="width: 66.7%;"></div></div><span class="text-red-300 font-black text-right">66.7%</span></div>
+            <div class="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-xs"><span class="font-bold text-white">Majority Baseline</span><div class="bar-track"><div class="bar-fill" style="width: 49.9%;"></div></div><span class="text-red-300 font-black text-right">49.9%</span></div>
+          </div>
+        </div>
+
+        <div class="chart-shell p-5 sm:p-6 overflow-x-auto">
+          <div class="flex items-center justify-between gap-3 mb-5">
+            <div>
+              <h3 class="text-lg font-black text-white">Confusion Matrix: Random Forest</h3>
+              <p class="text-xs text-zinc-500 mt-1">Actual outcomes are rows; predicted outcomes are columns.</p>
+            </div>
+            <span class="text-xs text-red-400 font-bold uppercase tracking-wider">Holdout</span>
+          </div>
+          <div class="confusion-wrap">
+            <div class="confusion-y-label">Actual</div>
+            <div class="confusion-grid">
+              <div></div>
+              <div class="confusion-label">Dropout</div>
+              <div class="confusion-label">Enrolled</div>
+              <div class="confusion-label">Graduate</div>
+
+              <div class="confusion-label">Dropout</div>
+              <div class="confusion-cell high">215</div>
+              <div class="confusion-cell low">24</div>
+              <div class="confusion-cell mid-low">45</div>
+
+              <div class="confusion-label">Enrolled</div>
+              <div class="confusion-cell low">34</div>
+              <div class="confusion-cell mid-low">55</div>
+              <div class="confusion-cell mid">70</div>
+
+              <div class="confusion-label">Graduate</div>
+              <div class="confusion-cell low">11</div>
+              <div class="confusion-cell low">12</div>
+              <div class="confusion-cell peak">419</div>
+
+              <div></div>
+              <div class="confusion-label confusion-axis">Predicted</div>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="color-scale"></div>
+              <div class="scale-labels">
+                <span>419</span>
+                <span>300</span>
+                <span>150</span>
+                <span>0</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -377,17 +670,20 @@
                 <th class="py-3 pr-4">Model Family</th>
                 <th class="py-3 pr-4">Accuracy</th>
                 <th class="py-3 pr-4">Use Case</th>
+                <th class="py-3 pr-4">Notebook</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-zinc-800/80 text-zinc-300">
-              <tr><td class="py-3 pr-4 font-bold text-red-400">1</td><td class="py-3 pr-4 font-semibold text-white">Random Forest</td><td class="py-3 pr-4">Ensemble trees</td><td class="py-3 pr-4">88.4%</td><td class="py-3 pr-4">Final classifier candidate</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">2</td><td class="py-3 pr-4 font-semibold text-white">Gradient Boosting</td><td class="py-3 pr-4">Boosted trees</td><td class="py-3 pr-4">87.2%</td><td class="py-3 pr-4">High-performing comparison</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">3</td><td class="py-3 pr-4 font-semibold text-white">Support Vector Machine</td><td class="py-3 pr-4">Margin classifier</td><td class="py-3 pr-4">84.9%</td><td class="py-3 pr-4">Separation benchmark</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">4</td><td class="py-3 pr-4 font-semibold text-white">Decision Tree</td><td class="py-3 pr-4">Single tree</td><td class="py-3 pr-4">83.0%</td><td class="py-3 pr-4">Readable rule baseline</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">5</td><td class="py-3 pr-4 font-semibold text-white">Logistic Regression</td><td class="py-3 pr-4">Linear model</td><td class="py-3 pr-4">82.1%</td><td class="py-3 pr-4">Interpretability benchmark</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">6</td><td class="py-3 pr-4 font-semibold text-white">K-Nearest Neighbors</td><td class="py-3 pr-4">Distance model</td><td class="py-3 pr-4">79.6%</td><td class="py-3 pr-4">Similarity-based comparison</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">7</td><td class="py-3 pr-4 font-semibold text-white">Naive Bayes</td><td class="py-3 pr-4">Probability model</td><td class="py-3 pr-4">73.6%</td><td class="py-3 pr-4">Fast lightweight model</td></tr>
-              <tr><td class="py-3 pr-4 font-bold text-red-400">8</td><td class="py-3 pr-4 font-semibold text-white">Majority Class Baseline</td><td class="py-3 pr-4">Baseline</td><td class="py-3 pr-4">50.0%</td><td class="py-3 pr-4">Minimum comparison point</td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">1</td><td class="py-3 pr-4 font-semibold text-white">Random Forest</td><td class="py-3 pr-4">Ensemble trees</td><td class="py-3 pr-4">77.9%</td><td class="py-3 pr-4">Final classifier candidate</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">2</td><td class="py-3 pr-4 font-semibold text-white">Extra Trees</td><td class="py-3 pr-4">Randomized ensemble</td><td class="py-3 pr-4">76.7%</td><td class="py-3 pr-4">Randomized tree comparison</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">3</td><td class="py-3 pr-4 font-semibold text-white">Histogram Gradient Boosting</td><td class="py-3 pr-4">Boosted trees</td><td class="py-3 pr-4">76.7%</td><td class="py-3 pr-4">High macro-F1 comparison</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">4</td><td class="py-3 pr-4 font-semibold text-white">Gradient Boosting</td><td class="py-3 pr-4">Boosted trees</td><td class="py-3 pr-4">76.2%</td><td class="py-3 pr-4">High-performing comparison</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">5</td><td class="py-3 pr-4 font-semibold text-white">Support Vector Machine</td><td class="py-3 pr-4">Margin classifier</td><td class="py-3 pr-4">75.9%</td><td class="py-3 pr-4">Separation benchmark</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">6</td><td class="py-3 pr-4 font-semibold text-white">Logistic Regression</td><td class="py-3 pr-4">Linear model</td><td class="py-3 pr-4">75.8%</td><td class="py-3 pr-4">Interpretability benchmark</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">7</td><td class="py-3 pr-4 font-semibold text-white">Decision Tree</td><td class="py-3 pr-4">Single tree</td><td class="py-3 pr-4">73.4%</td><td class="py-3 pr-4">Readable rule baseline</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">8</td><td class="py-3 pr-4 font-semibold text-white">K-Nearest Neighbors</td><td class="py-3 pr-4">Distance model</td><td class="py-3 pr-4">69.7%</td><td class="py-3 pr-4">Similarity-based comparison</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">9</td><td class="py-3 pr-4 font-semibold text-white">Naive Bayes</td><td class="py-3 pr-4">Probability model</td><td class="py-3 pr-4">66.7%</td><td class="py-3 pr-4">Fast lightweight model</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
+              <tr><td class="py-3 pr-4 font-bold text-red-400">10</td><td class="py-3 pr-4 font-semibold text-white">Majority Class Baseline</td><td class="py-3 pr-4">Baseline</td><td class="py-3 pr-4">49.9%</td><td class="py-3 pr-4">Minimum comparison point</td><td class="py-3 pr-4"><a href="https://colab.research.google.com/drive/1EJXPqY78bF2CD-66hjIso4-_VrHaCEGb#scrollTo=UDMO3USk-cSQ" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:text-red-300 underline underline-offset-2 font-semibold">Colab</a></td></tr>
             </tbody>
           </table>
         </div>
@@ -398,7 +694,7 @@
         <div class="mt-5 space-y-4 text-sm">
           <div class="p-4 rounded-xl bg-black/50 border border-red-900/50">
             <div class="text-xs text-red-400 uppercase font-bold tracking-wider">Best model</div>
-            <p class="text-zinc-300 mt-1">Random Forest has the top accuracy at 88.4% and is the best candidate for the final student-risk classifier.</p>
+            <p class="text-zinc-300 mt-1">Random Forest has the top accuracy at 77.9% and is the best candidate for the final student-risk classifier.</p>
           </div>
           <div class="p-4 rounded-xl bg-black/50 border border-zinc-800">
             <div class="text-xs text-red-400 uppercase font-bold tracking-wider">Why it wins</div>

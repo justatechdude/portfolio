@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dataset Charts & EDA | Kervens Jean-Charles</title>
+  <title>Assignments & EDA | Kervens Jean-Charles</title>
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -98,7 +98,7 @@
           <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
-          Dataset Charts
+          Assignments
         </a>
         <a href="models.html" class="text-zinc-300 hover:text-white transition-colors">Models</a>
         <a href="index.html#contact" class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-red-500 rounded-lg text-xs font-medium tracking-wider uppercase transition-all">
@@ -118,7 +118,7 @@
     <div id="mobile-menu" class="hidden md:hidden bg-[#0c0c0e] border-b border-zinc-800 px-5 pt-3 pb-5 space-y-3">
       <a href="index.html#home" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Home</a>
       <a href="index.html#research" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Research Topic</a>
-      <a href="visualizations.html" class="block py-2 text-red-400 font-bold">Dataset Charts</a>
+      <a href="visualizations.html" class="block py-2 text-red-400 font-bold">Assignments</a>
       <a href="#redesign-tab" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Visualization Redesign</a>
       <a href="models.html" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Models</a>
       <a href="index.html#contact" class="block py-2 text-zinc-200 hover:text-red-400 font-medium">Contact</a>
@@ -184,19 +184,22 @@
     <div class="sticky top-[73px] z-30 -mx-4 px-4 py-3 bg-[#050505]/92 backdrop-blur-md border-y border-zinc-900">
       <div class="max-w-7xl mx-auto flex gap-2 overflow-x-auto">
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="final-visuals" aria-selected="true">
-          Final Charts
+          AS2 Kaggle Dataset Investigation & Data Understanding
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="cleaning-tab" aria-selected="false">
-          Data Cleaning & Preparation
+          AS3 Data Cleaning & Preparation
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="sql-tab" aria-selected="false">
-          SQL Data Analysis
+          AS4 SQL Data Analysis
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="eda-tab" aria-selected="false">
-          Data Exploration
+          AS5 Exploratory Data Analysis
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="redesign-tab" aria-selected="false">
-          Static Visualization & Redesign
+          AS6 Static Visualization & Redesign
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="assignment7-tab" aria-selected="false">
+          AS7 Analytical Findings & Statistical Interpretation
         </button>
       </div>
     </div>
@@ -574,6 +577,101 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
           <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Finding 4:</span> Older and evening students require contextual support because risk is partly structural.</div>
           <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800 md:col-span-2"><span class="font-bold text-red-400">Finding 5:</span> Missing academic activity and anomalous low-credit records should be documented because they may represent disengagement before formal dropout.</div>
         </div>
+      </div>
+    </section>
+
+    <section id="assignment7-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Assignment 7</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Analytical Findings & Statistical Interpretation</h2>
+        <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+          Theme: from visualization to evidence. These findings move beyond describing charts by connecting research questions, measured evidence, visual support, analysis, and interpretation for the Results section.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-5 gap-4">
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Relationships</div>
+          <p class="text-zinc-300 text-sm mt-2">Tests whether academic and financial variables are associated with student outcome.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Comparisons</div>
+          <p class="text-zinc-300 text-sm mt-2">Compares dropout, enrolled, and graduate groups using percentages and medians.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Trends</div>
+          <p class="text-zinc-300 text-sm mt-2">Shows how dropout risk changes by age band and attendance context.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Correlations</div>
+          <p class="text-zinc-300 text-sm mt-2">Academic progress variables are negatively related to dropout risk.</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-red-900/50">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Experiments</div>
+          <p class="text-zinc-300 text-sm mt-2">10 machine learning models were evaluated in the Colab notebook.</p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 1</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Tuition payment status is strongly associated with dropout risk</h3>
+          <div class="grid lg:grid-cols-5 gap-4 mt-5 text-sm">
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Research Question</div><p class="text-zinc-300 mt-2">Does unpaid tuition separate dropouts from students who remain enrolled or graduate?</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Evidence</div><p class="text-zinc-300 mt-2">86.6% of students with unpaid fees dropped out, compared with 24.7% of students whose fees were current.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Visualization</div><p class="text-zinc-300 mt-2">Tuition Status and Outcome chart; redesign Finding 1.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Analysis</div><p class="text-zinc-300 mt-2">The group with unpaid fees is overwhelmingly concentrated in the dropout category.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Interpretation</div><p class="text-zinc-300 mt-2">Financial instability appears to be one of the strongest actionable early-warning signals.</p></div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 2</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">First-semester completion separates dropout and graduate outcomes</h3>
+          <div class="grid lg:grid-cols-5 gap-4 mt-5 text-sm">
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Research Question</div><p class="text-zinc-300 mt-2">Are approved first-semester units associated with student outcome?</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Evidence</div><p class="text-zinc-300 mt-2">Median approved units: Dropout 2, Enrolled 5, Graduate 6. Students with fewer than 3 approved units had a 77.1% dropout rate.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Visualization</div><p class="text-zinc-300 mt-2">Approved Units by Outcome chart; redesign Finding 2.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Analysis</div><p class="text-zinc-300 mt-2">Academic progress shows a clear ordered pattern from dropout to enrolled to graduate.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Interpretation</div><p class="text-zinc-300 mt-2">Early credit completion should be used as an advisor alert before the second semester.</p></div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 3</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Low grades and low completion reinforce academic risk</h3>
+          <div class="grid lg:grid-cols-5 gap-4 mt-5 text-sm">
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Research Question</div><p class="text-zinc-300 mt-2">Which academic variables appear related to dropout?</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Evidence</div><p class="text-zinc-300 mt-2">Dropout correlation: first-semester approved units -0.479, first-semester grade -0.481, second-semester grade -0.572.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Visualization</div><p class="text-zinc-300 mt-2">Correlation Matrix and Age vs. Semester Grade charts.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Analysis</div><p class="text-zinc-300 mt-2">Higher grades and more approved units move opposite dropout risk, making them overlapping but meaningful predictors.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Interpretation</div><p class="text-zinc-300 mt-2">Academic support should combine tutoring, course-load review, and progress monitoring.</p></div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 4</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Dropout risk rises for older and evening students</h3>
+          <div class="grid lg:grid-cols-5 gap-4 mt-5 text-sm">
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Research Question</div><p class="text-zinc-300 mt-2">How does dropout risk change by age and attendance context?</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Evidence</div><p class="text-zinc-300 mt-2">Dropout rate rises from 22.1% for ages 18-21 to 57.6% for ages 26-35. Evening students show 42.9% dropout versus 30.8% for daytime students.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Visualization</div><p class="text-zinc-300 mt-2">Age vs. Semester Grade chart; redesign Finding 4.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Analysis</div><p class="text-zinc-300 mt-2">Non-traditional students show higher attrition, suggesting outside responsibilities may affect persistence.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Interpretation</div><p class="text-zinc-300 mt-2">Flexible advising and evening support should be part of retention planning.</p></div>
+          </div>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Finding 5</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Machine learning confirms that nonlinear ensembles best fit this task</h3>
+          <div class="grid lg:grid-cols-5 gap-4 mt-5 text-sm">
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Research Question</div><p class="text-zinc-300 mt-2">Which model best predicts dropout, enrolled, and graduate outcomes?</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Evidence</div><p class="text-zinc-300 mt-2">10 models were evaluated. Random Forest ranked first at 77.9% accuracy; Extra Trees and Histogram Gradient Boosting followed at 76.7%.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Visualization</div><p class="text-zinc-300 mt-2">Model accuracy bar graph, score table, and Random Forest confusion matrix on the Models page.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Analysis</div><p class="text-zinc-300 mt-2">Tree ensembles performed best because they can combine financial, academic, and background variables without assuming a simple linear relationship.</p></div>
+            <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Interpretation</div><p class="text-zinc-300 mt-2">The final Results section should present Random Forest as the best classifier while noting persistent difficulty identifying the enrolled middle category.</p></div>
+          </div>
+        </article>
       </div>
     </section>
 
