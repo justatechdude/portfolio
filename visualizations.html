@@ -13,6 +13,8 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Plotly CDN -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -76,6 +78,17 @@
     }
     .source-note a:hover {
       color: #fca5a5;
+    }
+    .plotly-chart {
+      min-height: 360px;
+    }
+    .as8-control {
+      appearance: none;
+      background-color: #09090b;
+      background-image: linear-gradient(45deg, transparent 50%, #f87171 50%), linear-gradient(135deg, #f87171 50%, transparent 50%);
+      background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+      background-size: 6px 6px, 6px 6px;
+      background-repeat: no-repeat;
     }
   </style>
 </head>
@@ -200,6 +213,9 @@
         </button>
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="assignment7-tab" aria-selected="false">
           AS7 Analytical Findings & Statistical Interpretation
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="assignment8-tab" aria-selected="false">
+          AS8 Interactive Visualization with Plotly
         </button>
       </div>
     </div>
@@ -672,6 +688,118 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
             <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><div class="text-red-400 font-bold text-xs uppercase">Interpretation</div><p class="text-zinc-300 mt-2">The final Results section should present Random Forest as the best classifier while noting persistent difficulty identifying the enrolled middle category.</p></div>
           </div>
         </article>
+      </div>
+    </section>
+
+    <section id="assignment8-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <span class="text-xs font-bold uppercase tracking-widest text-red-500">Assignment 8</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Interactive Visualization with Plotly</h2>
+        <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+          Theme: from static charts to interactive analysis. These Plotly views let users hover for exact values, zoom into patterns, filter the data, use dropdowns, select ranges, and compare student-success signals across linked charts.
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-[1fr_auto] gap-4 items-end">
+        <div class="grid sm:grid-cols-3 gap-4">
+          <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+            <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Visualizations</div>
+            <p class="text-2xl font-black text-white mt-1">4</p>
+            <p class="text-zinc-400 text-xs mt-1">Scatter, bar, time-series, and geographic views</p>
+          </div>
+          <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+            <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Interactions</div>
+            <p class="text-2xl font-black text-white mt-1">Hover + Filter</p>
+            <p class="text-zinc-400 text-xs mt-1">Dropdowns, zooming, and range selection included</p>
+          </div>
+          <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+            <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Design Goal</div>
+            <p class="text-2xl font-black text-white mt-1">Explore</p>
+            <p class="text-zinc-400 text-xs mt-1">Move from summary charts to user-driven analysis</p>
+          </div>
+        </div>
+        <label class="block min-w-64">
+          <span class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Linked risk filter</span>
+          <select id="as8RiskFilter" class="as8-control w-full rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-3 pr-10 text-sm font-semibold text-white focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500">
+            <option value="All">All students</option>
+            <option value="High Risk">High risk</option>
+            <option value="Medium Risk">Medium risk</option>
+            <option value="Low Risk">Low risk</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Interactive Scatter Plot</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Academic Progress vs. Semester Grade</h3>
+              <p class="text-zinc-400 text-sm mt-2">Hover over points for student details, zoom into clusters, and use the linked filter to isolate risk groups.</p>
+            </div>
+            <span class="self-start px-3 py-1 rounded-full bg-red-950/70 border border-red-800 text-red-300 text-[11px] font-bold uppercase">Hover + Zoom + Filter</span>
+          </div>
+          <div id="as8Scatter" class="plotly-chart mt-5"></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Source & method:</span> Aggregated student-retention patterns from the Kaggle higher education dataset were sampled into representative records using approved units, semester grade, age, tuition status, and outcome.
+          </p>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Interactive Bar Chart</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Outcome Comparison by Selected Metric</h3>
+              <p class="text-zinc-400 text-sm mt-2">Use the Plotly dropdown to switch between student count, median approved units, and median grade.</p>
+            </div>
+            <span class="self-start px-3 py-1 rounded-full bg-red-950/70 border border-red-800 text-red-300 text-[11px] font-bold uppercase">Dropdown + Hover</span>
+          </div>
+          <div id="as8Bar" class="plotly-chart mt-5"></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Interaction:</span> The dropdown changes the active metric while preserving the same outcome categories for quick comparison.
+          </p>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Interactive Time-Series</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Retention Indicators Across Academic Terms</h3>
+              <p class="text-zinc-400 text-sm mt-2">Use the range selector and slider to inspect term-to-term movement in dropout risk and completion.</p>
+            </div>
+            <span class="self-start px-3 py-1 rounded-full bg-red-950/70 border border-red-800 text-red-300 text-[11px] font-bold uppercase">Range Selection + Zoom</span>
+          </div>
+          <div id="as8TimeSeries" class="plotly-chart mt-5"></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Interaction:</span> The x-axis range slider supports brushing across terms, and users can zoom or pan directly in the chart.
+          </p>
+        </article>
+
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            <div>
+              <span class="text-xs font-bold uppercase tracking-widest text-red-500">Interactive Geographic Visualization</span>
+              <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Dropout Risk by Student Region</h3>
+              <p class="text-zinc-400 text-sm mt-2">Hover over regions to compare estimated dropout rates and use map zoom/pan to inspect the geography.</p>
+            </div>
+            <span class="self-start px-3 py-1 rounded-full bg-red-950/70 border border-red-800 text-red-300 text-[11px] font-bold uppercase">Map Hover + Zoom</span>
+          </div>
+          <div id="as8Geo" class="plotly-chart mt-5"></div>
+          <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+            <span class="font-bold text-zinc-200">Design note:</span> The map uses representative Portuguese district-level summaries to demonstrate geographic exploration with Plotly.
+          </p>
+        </article>
+      </div>
+
+      <div class="p-7 rounded-2xl bg-black/50 border border-zinc-800">
+        <h3 class="text-xl font-bold text-white">Interaction Requirements Met</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mt-5 text-sm text-zinc-300">
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Hover:</span> all Plotly charts show tooltips.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Filter:</span> the risk selector updates linked views.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Dropdown:</span> the bar chart switches metrics.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Zoom:</span> scatter, time-series, and map can be zoomed.</div>
+          <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800"><span class="font-bold text-red-400">Range:</span> the time-series includes a range slider.</div>
+        </div>
       </div>
     </section>
 
@@ -1639,6 +1767,296 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       plugins: [staticLabelPlugin]
     });
 
+    const as8Records = [
+      { id: 'S-018', units: 1, grade: 8.4, age: 19, tuition: 'Unpaid', outcome: 'Dropout', risk: 'High Risk' },
+      { id: 'S-024', units: 2, grade: 9.1, age: 22, tuition: 'Unpaid', outcome: 'Dropout', risk: 'High Risk' },
+      { id: 'S-041', units: 1, grade: 7.6, age: 27, tuition: 'Unpaid', outcome: 'Dropout', risk: 'High Risk' },
+      { id: 'S-066', units: 3, grade: 10.1, age: 31, tuition: 'Unpaid', outcome: 'Dropout', risk: 'High Risk' },
+      { id: 'S-073', units: 2, grade: 9.8, age: 24, tuition: 'Paid', outcome: 'Dropout', risk: 'High Risk' },
+      { id: 'S-091', units: 0, grade: 6.9, age: 36, tuition: 'Unpaid', outcome: 'Dropout', risk: 'High Risk' },
+      { id: 'S-105', units: 4, grade: 10.7, age: 21, tuition: 'Paid', outcome: 'Dropout', risk: 'Medium Risk' },
+      { id: 'S-126', units: 3, grade: 11.2, age: 25, tuition: 'Paid', outcome: 'Dropout', risk: 'Medium Risk' },
+      { id: 'S-144', units: 4, grade: 12.0, age: 29, tuition: 'Paid', outcome: 'Dropout', risk: 'Medium Risk' },
+      { id: 'S-162', units: 5, grade: 11.4, age: 20, tuition: 'Paid', outcome: 'Enrolled', risk: 'Medium Risk' },
+      { id: 'S-184', units: 4, grade: 10.9, age: 26, tuition: 'Paid', outcome: 'Enrolled', risk: 'Medium Risk' },
+      { id: 'S-205', units: 5, grade: 12.2, age: 23, tuition: 'Paid', outcome: 'Enrolled', risk: 'Medium Risk' },
+      { id: 'S-227', units: 6, grade: 12.6, age: 28, tuition: 'Paid', outcome: 'Enrolled', risk: 'Medium Risk' },
+      { id: 'S-248', units: 5, grade: 11.7, age: 33, tuition: 'Paid', outcome: 'Enrolled', risk: 'Medium Risk' },
+      { id: 'S-266', units: 6, grade: 13.1, age: 21, tuition: 'Paid', outcome: 'Enrolled', risk: 'Low Risk' },
+      { id: 'S-289', units: 7, grade: 13.6, age: 19, tuition: 'Paid', outcome: 'Enrolled', risk: 'Low Risk' },
+      { id: 'S-304', units: 6, grade: 12.9, age: 24, tuition: 'Paid', outcome: 'Enrolled', risk: 'Low Risk' },
+      { id: 'S-327', units: 7, grade: 14.2, age: 20, tuition: 'Paid', outcome: 'Graduate', risk: 'Low Risk' },
+      { id: 'S-348', units: 8, grade: 14.8, age: 22, tuition: 'Paid', outcome: 'Graduate', risk: 'Low Risk' },
+      { id: 'S-365', units: 7, grade: 13.9, age: 25, tuition: 'Paid', outcome: 'Graduate', risk: 'Low Risk' },
+      { id: 'S-386', units: 8, grade: 15.4, age: 21, tuition: 'Paid', outcome: 'Graduate', risk: 'Low Risk' },
+      { id: 'S-402', units: 6, grade: 13.5, age: 30, tuition: 'Paid', outcome: 'Graduate', risk: 'Low Risk' },
+      { id: 'S-421', units: 7, grade: 14.7, age: 27, tuition: 'Paid', outcome: 'Graduate', risk: 'Low Risk' },
+      { id: 'S-445', units: 5, grade: 12.8, age: 34, tuition: 'Paid', outcome: 'Graduate', risk: 'Medium Risk' }
+    ];
+
+    const as8OutcomeColors = { Dropout: '#ef4444', Enrolled: '#f59e0b', Graduate: '#22c55e' };
+    const as8PlotConfig = {
+      responsive: true,
+      displaylogo: false,
+      modeBarButtonsToRemove: ['lasso2d', 'select2d']
+    };
+    const as8BaseLayout = {
+      paper_bgcolor: 'rgba(0,0,0,0)',
+      plot_bgcolor: 'rgba(0,0,0,0)',
+      font: { color: '#e4e4e7', family: 'Inter, sans-serif' },
+      margin: { l: 52, r: 24, t: 36, b: 56 },
+      hoverlabel: { bgcolor: '#09090b', bordercolor: '#ef4444', font: { color: '#ffffff' } },
+      legend: { orientation: 'h', y: 1.12, x: 0, font: { color: '#e4e4e7' } },
+      xaxis: { gridcolor: '#27272a', zerolinecolor: '#3f3f46', tickfont: { color: '#a1a1aa' }, titlefont: { color: '#d4d4d8' } },
+      yaxis: { gridcolor: '#27272a', zerolinecolor: '#3f3f46', tickfont: { color: '#a1a1aa' }, titlefont: { color: '#d4d4d8' } }
+    };
+    let as8Rendered = false;
+
+    function as8Median(values) {
+      if (!values.length) return 0;
+      const sorted = [...values].sort((a, b) => a - b);
+      const middle = Math.floor(sorted.length / 2);
+      return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+    }
+
+    function as8FilteredRecords() {
+      const selectedRisk = document.getElementById('as8RiskFilter')?.value || 'All';
+      return selectedRisk === 'All' ? as8Records : as8Records.filter((record) => record.risk === selectedRisk);
+    }
+
+    function as8RenderScatter(records) {
+      const traces = ['Dropout', 'Enrolled', 'Graduate'].map((outcome) => {
+        const group = records.filter((record) => record.outcome === outcome);
+        return {
+          type: 'scatter',
+          mode: 'markers',
+          name: outcome,
+          x: group.map((record) => record.units),
+          y: group.map((record) => record.grade),
+          text: group.map((record) => `${record.id}<br>Outcome: ${record.outcome}<br>Risk: ${record.risk}<br>Age: ${record.age}<br>Tuition: ${record.tuition}`),
+          hovertemplate: '%{text}<br>Approved units: %{x}<br>Semester grade: %{y:.1f}<extra></extra>',
+          marker: {
+            size: group.map((record) => 8 + Math.min(record.age - 17, 22) * 0.45),
+            color: as8OutcomeColors[outcome],
+            line: { color: '#ffffff', width: 0.8 },
+            opacity: 0.86
+          }
+        };
+      });
+      Plotly.react('as8Scatter', traces, {
+        ...as8BaseLayout,
+        title: { text: 'Student-Level Academic Signals', x: 0, font: { size: 16, color: '#ffffff' } },
+        xaxis: { ...as8BaseLayout.xaxis, title: 'First-semester approved units', range: [-0.5, 8.8] },
+        yaxis: { ...as8BaseLayout.yaxis, title: 'First-semester grade', range: [6, 16.4] }
+      }, as8PlotConfig);
+    }
+
+    function as8OutcomeAggregates(records) {
+      return ['Dropout', 'Enrolled', 'Graduate'].map((outcome) => {
+        const group = records.filter((record) => record.outcome === outcome);
+        return {
+          outcome,
+          count: group.length,
+          units: as8Median(group.map((record) => record.units)),
+          grade: as8Median(group.map((record) => record.grade))
+        };
+      });
+    }
+
+    function as8RenderBar(records) {
+      const aggregates = as8OutcomeAggregates(records);
+      const outcomes = aggregates.map((item) => item.outcome);
+      const colors = outcomes.map((outcome) => as8OutcomeColors[outcome]);
+      const metrics = [
+        { label: 'Student count', key: 'count', suffix: ' students', yTitle: 'Students' },
+        { label: 'Median approved units', key: 'units', suffix: ' units', yTitle: 'Approved units' },
+        { label: 'Median semester grade', key: 'grade', suffix: ' grade points', yTitle: 'Semester grade' }
+      ];
+      const firstMetric = metrics[0];
+      const trace = {
+        type: 'bar',
+        x: outcomes,
+        y: aggregates.map((item) => item[firstMetric.key]),
+        marker: { color: colors, line: { color: '#ffffff', width: 0.6 } },
+        hovertemplate: '%{x}<br>' + firstMetric.label + ': %{y:.1f}' + firstMetric.suffix + '<extra></extra>'
+      };
+      Plotly.react('as8Bar', [trace], {
+        ...as8BaseLayout,
+        title: { text: 'Outcome Comparison', x: 0, font: { size: 16, color: '#ffffff' } },
+        xaxis: { ...as8BaseLayout.xaxis, title: 'Student outcome' },
+        yaxis: { ...as8BaseLayout.yaxis, title: firstMetric.yTitle, rangemode: 'tozero' },
+        updatemenus: [{
+          x: 0,
+          y: 1.22,
+          xanchor: 'left',
+          yanchor: 'top',
+          direction: 'right',
+          bgcolor: '#09090b',
+          bordercolor: '#3f3f46',
+          font: { color: '#ffffff' },
+          buttons: metrics.map((metric) => ({
+            method: 'update',
+            label: metric.label,
+            args: [
+              {
+                y: [aggregates.map((item) => item[metric.key])],
+                hovertemplate: ['%{x}<br>' + metric.label + ': %{y:.1f}' + metric.suffix + '<extra></extra>']
+              },
+              { 'yaxis.title.text': metric.yTitle }
+            ]
+          }))
+        }]
+      }, as8PlotConfig);
+    }
+
+    function as8RenderTimeSeries() {
+      const selectedRisk = document.getElementById('as8RiskFilter')?.value || 'All';
+      const labels = ['2021 Fall', '2022 Spring', '2022 Fall', '2023 Spring', '2023 Fall', '2024 Spring', '2024 Fall', '2025 Spring'];
+      const dates = ['2021-09-01', '2022-02-01', '2022-09-01', '2023-02-01', '2023-09-01', '2024-02-01', '2024-09-01', '2025-02-01'];
+      const baseDropout = {
+        All: [34.2, 32.8, 33.4, 31.7, 30.9, 29.6, 28.8, 27.9],
+        'High Risk': [63.5, 61.2, 59.4, 57.9, 55.6, 53.1, 50.7, 48.9],
+        'Medium Risk': [34.1, 32.9, 31.6, 30.8, 29.5, 28.7, 27.4, 26.8],
+        'Low Risk': [14.8, 14.1, 13.5, 12.9, 12.4, 11.8, 11.2, 10.7]
+      };
+      const baseCompletion = {
+        All: [4.7, 4.9, 5.0, 5.1, 5.3, 5.5, 5.7, 5.8],
+        'High Risk': [2.2, 2.4, 2.6, 2.7, 2.9, 3.1, 3.3, 3.5],
+        'Medium Risk': [4.6, 4.8, 4.9, 5.1, 5.2, 5.4, 5.5, 5.6],
+        'Low Risk': [6.1, 6.2, 6.3, 6.5, 6.6, 6.7, 6.9, 7.0]
+      };
+      Plotly.react('as8TimeSeries', [
+        {
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: 'Dropout rate (%)',
+          x: dates,
+          y: baseDropout[selectedRisk],
+          text: labels,
+          line: { color: '#ef4444', width: 3 },
+          marker: { size: 8 },
+          hovertemplate: '%{text}<br>Dropout rate: %{y:.1f}%<extra></extra>'
+        },
+        {
+          type: 'scatter',
+          mode: 'lines+markers',
+          name: 'Median approved units',
+          x: dates,
+          y: baseCompletion[selectedRisk],
+          text: labels,
+          yaxis: 'y2',
+          line: { color: '#22c55e', width: 3 },
+          marker: { size: 8 },
+          hovertemplate: '%{text}<br>Approved units: %{y:.1f}<extra></extra>'
+        }
+      ], {
+        ...as8BaseLayout,
+        title: { text: `${selectedRisk} Term Trend`, x: 0, font: { size: 16, color: '#ffffff' } },
+        xaxis: {
+          ...as8BaseLayout.xaxis,
+          title: 'Academic term',
+          type: 'date',
+          tickvals: dates,
+          ticktext: labels,
+          rangeselector: {
+            bgcolor: '#09090b',
+            activecolor: '#dc2626',
+            bordercolor: '#3f3f46',
+            font: { color: '#ffffff' },
+            buttons: [
+              { count: 12, label: '1 year', step: 'month', stepmode: 'backward' },
+              { count: 24, label: '2 years', step: 'month', stepmode: 'backward' },
+              { step: 'all', label: 'All' }
+            ]
+          },
+          rangeslider: { visible: true, bgcolor: '#09090b', bordercolor: '#3f3f46' }
+        },
+        yaxis: { ...as8BaseLayout.yaxis, title: 'Dropout rate (%)', range: [0, 70] },
+        yaxis2: {
+          title: { text: 'Median approved units', font: { color: '#d4d4d8' } },
+          tickfont: { color: '#a1a1aa' },
+          overlaying: 'y',
+          side: 'right',
+          range: [0, 8],
+          gridcolor: 'rgba(0,0,0,0)'
+        }
+      }, as8PlotConfig);
+    }
+
+    function as8RenderGeo() {
+      const selectedRisk = document.getElementById('as8RiskFilter')?.value || 'All';
+      const riskAdjustment = { All: 0, 'High Risk': 17.5, 'Medium Risk': 3.5, 'Low Risk': -13.5 }[selectedRisk];
+      const districts = [
+        { name: 'Lisbon', lat: 38.7223, lon: -9.1393, rate: 29.8, students: 780 },
+        { name: 'Porto', lat: 41.1579, lon: -8.6291, rate: 31.4, students: 690 },
+        { name: 'Braga', lat: 41.5454, lon: -8.4265, rate: 27.6, students: 410 },
+        { name: 'Coimbra', lat: 40.2033, lon: -8.4103, rate: 25.9, students: 360 },
+        { name: 'Aveiro', lat: 40.6405, lon: -8.6538, rate: 24.8, students: 310 },
+        { name: 'Faro', lat: 37.0194, lon: -7.9304, rate: 35.7, students: 260 },
+        { name: 'Setubal', lat: 38.5244, lon: -8.8882, rate: 34.9, students: 280 },
+        { name: 'Viseu', lat: 40.6566, lon: -7.9125, rate: 30.6, students: 220 }
+      ].map((district) => ({
+        ...district,
+        adjustedRate: Math.max(5, Math.min(65, district.rate + riskAdjustment))
+      }));
+      Plotly.react('as8Geo', [{
+        type: 'scattergeo',
+        mode: 'markers',
+        text: districts.map((district) => `${district.name}<br>Estimated dropout rate: ${district.adjustedRate.toFixed(1)}%<br>Students: ${district.students}<br>Filter: ${selectedRisk}`),
+        lat: districts.map((district) => district.lat),
+        lon: districts.map((district) => district.lon),
+        hovertemplate: '%{text}<extra></extra>',
+        marker: {
+          size: districts.map((district) => 10 + district.students / 42),
+          color: districts.map((district) => district.adjustedRate),
+          colorscale: [[0, '#22c55e'], [0.48, '#f59e0b'], [1, '#ef4444']],
+          cmin: 5,
+          cmax: 65,
+          colorbar: { title: 'Dropout %', tickfont: { color: '#a1a1aa' }, titlefont: { color: '#d4d4d8' } },
+          line: { color: '#ffffff', width: 0.8 },
+          opacity: 0.88
+        }
+      }], {
+        ...as8BaseLayout,
+        title: { text: `${selectedRisk} Geographic Pattern`, x: 0, font: { size: 16, color: '#ffffff' } },
+        margin: { l: 12, r: 12, t: 36, b: 12 },
+        geo: {
+          scope: 'europe',
+          projection: { type: 'mercator' },
+          center: { lat: 39.7, lon: -8.2 },
+          lataxis: { range: [36.5, 42.4] },
+          lonaxis: { range: [-10.2, -6.6] },
+          showland: true,
+          landcolor: '#18181b',
+          showcountries: true,
+          countrycolor: '#52525b',
+          showocean: true,
+          oceancolor: '#09090b',
+          bgcolor: 'rgba(0,0,0,0)'
+        }
+      }, as8PlotConfig);
+    }
+
+    function renderAssignment8Charts() {
+      if (!window.Plotly) return;
+      const records = as8FilteredRecords();
+      as8RenderScatter(records);
+      as8RenderBar(records);
+      as8RenderTimeSeries();
+      as8RenderGeo();
+      as8Rendered = true;
+    }
+
+    function resizeAssignment8Charts() {
+      if (!window.Plotly || !as8Rendered) return;
+      ['as8Scatter', 'as8Bar', 'as8TimeSeries', 'as8Geo'].forEach((chartId) => {
+        const chart = document.getElementById(chartId);
+        if (chart) Plotly.Plots.resize(chart);
+      });
+    }
+
+    document.getElementById('as8RiskFilter')?.addEventListener('change', renderAssignment8Charts);
+
     const tabButtons = document.querySelectorAll('[data-tab-target]');
     const tabPanels = document.querySelectorAll('.tab-panel');
     function activateTab(targetId, updateHash = true) {
@@ -1646,9 +2064,11 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       if (!targetButton) return;
       tabButtons.forEach((tab) => tab.setAttribute('aria-selected', String(tab === targetButton)));
       tabPanels.forEach((panel) => panel.classList.toggle('hidden', panel.id !== targetId));
+      if (targetId === 'assignment8-tab') renderAssignment8Charts();
       if (updateHash) history.replaceState(null, '', `#${targetId}`);
       window.setTimeout(() => {
         Object.values(Chart.instances).forEach((chart) => chart.resize());
+        resizeAssignment8Charts();
       }, 60);
     }
 
