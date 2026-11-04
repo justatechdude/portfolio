@@ -2007,24 +2007,41 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
         ...district,
         adjustedRate: Math.max(5, Math.min(65, district.rate + riskAdjustment))
       }));
-      Plotly.react('as8Geo', [{
-        type: 'scattergeo',
-        mode: 'markers',
-        text: districts.map((district) => `${district.name}<br>Estimated dropout rate: ${district.adjustedRate.toFixed(1)}%<br>Students: ${district.students}<br>Filter: ${selectedRisk}`),
-        lat: districts.map((district) => district.lat),
-        lon: districts.map((district) => district.lon),
-        hovertemplate: '%{text}<extra></extra>',
-        marker: {
-          size: districts.map((district) => 10 + district.students / 42),
-          color: districts.map((district) => district.adjustedRate),
-          colorscale: [[0, '#22c55e'], [0.48, '#f59e0b'], [1, '#ef4444']],
-          cmin: 5,
-          cmax: 65,
-          colorbar: { title: 'Dropout %', tickfont: { color: '#a1a1aa' }, titlefont: { color: '#d4d4d8' } },
-          line: { color: '#ffffff', width: 0.8 },
-          opacity: 0.88
+      const countryLabels = [
+        { name: 'Portugal', lat: 39.7, lon: -8.35 },
+        { name: 'Spain', lat: 40.6, lon: -6.92 }
+      ];
+      Plotly.react('as8Geo', [
+        {
+          type: 'scattergeo',
+          mode: 'text',
+          text: countryLabels.map((country) => country.name),
+          lat: countryLabels.map((country) => country.lat),
+          lon: countryLabels.map((country) => country.lon),
+          hoverinfo: 'skip',
+          textfont: { color: 'rgba(244,244,245,0.58)', size: 15, family: 'Inter, sans-serif' },
+          textposition: 'middle center',
+          showlegend: false
+        },
+        {
+          type: 'scattergeo',
+          mode: 'markers',
+          text: districts.map((district) => `${district.name}<br>Estimated dropout rate: ${district.adjustedRate.toFixed(1)}%<br>Students: ${district.students}<br>Filter: ${selectedRisk}`),
+          lat: districts.map((district) => district.lat),
+          lon: districts.map((district) => district.lon),
+          hovertemplate: '%{text}<extra></extra>',
+          marker: {
+            size: districts.map((district) => 10 + district.students / 42),
+            color: districts.map((district) => district.adjustedRate),
+            colorscale: [[0, '#22c55e'], [0.48, '#f59e0b'], [1, '#ef4444']],
+            cmin: 5,
+            cmax: 65,
+            colorbar: { title: 'Dropout %', tickfont: { color: '#a1a1aa' }, titlefont: { color: '#d4d4d8' } },
+            line: { color: '#ffffff', width: 0.8 },
+            opacity: 0.88
+          }
         }
-      }], {
+      ], {
         ...as8BaseLayout,
         title: { text: `${selectedRisk} Geographic Pattern`, x: 0, font: { size: 16, color: '#ffffff' } },
         margin: { l: 12, r: 12, t: 36, b: 12 },
