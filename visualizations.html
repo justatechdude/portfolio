@@ -758,10 +758,18 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
             <div>
               <span class="text-xs font-bold uppercase tracking-widest text-red-500">Interactive Bar Chart</span>
               <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Outcome Comparison by Selected Metric</h3>
-              <p class="text-zinc-400 text-sm mt-2">Use the Plotly dropdown to switch between student count, median approved units, and median grade.</p>
+              <p class="text-zinc-400 text-sm mt-2">Use the metric dropdown to switch between student count, median approved units, and median grade.</p>
             </div>
             <span class="self-start px-3 py-1 rounded-full bg-red-950/70 border border-red-800 text-red-300 text-[11px] font-bold uppercase">Dropdown + Hover</span>
           </div>
+          <label class="block mt-5 max-w-xs">
+            <span class="block text-xs font-bold uppercase tracking-wider text-zinc-400 mb-2">Bar chart metric</span>
+            <select id="as8BarMetric" class="as8-control w-full rounded-xl border border-zinc-700 bg-zinc-950 px-4 py-3 pr-10 text-sm font-semibold text-white focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500">
+              <option value="count">Student count</option>
+              <option value="units">Median approved units</option>
+              <option value="grade">Median semester grade</option>
+            </select>
+          </label>
           <div id="as8Bar" class="plotly-chart mt-5"></div>
           <p class="source-note mt-4 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
             <span class="font-bold text-zinc-200">Interaction:</span> The dropdown changes the active metric while preserving the same outcome categories for quick comparison.
@@ -1803,6 +1811,11 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
     ];
 
     const as8OutcomeColors = { Dropout: '#ef4444', Enrolled: '#f59e0b', Graduate: '#22c55e' };
+    const as8BarMetrics = [
+      { label: 'Student count', key: 'count', suffix: ' students', yTitle: 'Students' },
+      { label: 'Median approved units', key: 'units', suffix: ' units', yTitle: 'Approved units' },
+      { label: 'Median semester grade', key: 'grade', suffix: ' grade points', yTitle: 'Semester grade' }
+    ];
     const as8PlotConfig = {
       responsive: true,
       displaylogo: false,
@@ -1875,45 +1888,20 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       const aggregates = as8OutcomeAggregates(records);
       const outcomes = aggregates.map((item) => item.outcome);
       const colors = outcomes.map((outcome) => as8OutcomeColors[outcome]);
-      const metrics = [
-        { label: 'Student count', key: 'count', suffix: ' students', yTitle: 'Students' },
-        { label: 'Median approved units', key: 'units', suffix: ' units', yTitle: 'Approved units' },
-        { label: 'Median semester grade', key: 'grade', suffix: ' grade points', yTitle: 'Semester grade' }
-      ];
-      const firstMetric = metrics[0];
+      const selectedMetricKey = document.getElementById('as8BarMetric')?.value || 'count';
+      const selectedMetric = as8BarMetrics.find((metric) => metric.key === selectedMetricKey) || as8BarMetrics[0];
       const trace = {
         type: 'bar',
         x: outcomes,
-        y: aggregates.map((item) => item[firstMetric.key]),
+        y: aggregates.map((item) => item[selectedMetric.key]),
         marker: { color: colors, line: { color: '#ffffff', width: 0.6 } },
-        hovertemplate: '%{x}<br>' + firstMetric.label + ': %{y:.1f}' + firstMetric.suffix + '<extra></extra>'
+        hovertemplate: '%{x}<br>' + selectedMetric.label + ': %{y:.1f}' + selectedMetric.suffix + '<extra></extra>'
       };
       Plotly.react('as8Bar', [trace], {
         ...as8BaseLayout,
         title: { text: 'Outcome Comparison', x: 0, font: { size: 16, color: '#ffffff' } },
         xaxis: { ...as8BaseLayout.xaxis, title: 'Student outcome' },
-        yaxis: { ...as8BaseLayout.yaxis, title: firstMetric.yTitle, rangemode: 'tozero' },
-        updatemenus: [{
-          x: 0,
-          y: 1.22,
-          xanchor: 'left',
-          yanchor: 'top',
-          direction: 'right',
-          bgcolor: '#09090b',
-          bordercolor: '#3f3f46',
-          font: { color: '#ffffff' },
-          buttons: metrics.map((metric) => ({
-            method: 'update',
-            label: metric.label,
-            args: [
-              {
-                y: [aggregates.map((item) => item[metric.key])],
-                hovertemplate: ['%{x}<br>' + metric.label + ': %{y:.1f}' + metric.suffix + '<extra></extra>']
-              },
-              { 'yaxis.title.text': metric.yTitle }
-            ]
-          }))
-        }]
+        yaxis: { ...as8BaseLayout.yaxis, title: selectedMetric.yTitle, rangemode: 'tozero' }
       }, as8PlotConfig);
     }
 
@@ -2081,6 +2069,7 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
     }
 
     document.getElementById('as8RiskFilter')?.addEventListener('change', renderAssignment8Charts);
+    document.getElementById('as8BarMetric')?.addEventListener('change', () => as8RenderBar(as8FilteredRecords()));
 
     const tabButtons = document.querySelectorAll('[data-tab-target]');
     const tabPanels = document.querySelectorAll('.tab-panel');
