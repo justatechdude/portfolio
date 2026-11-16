@@ -217,6 +217,12 @@
         <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="assignment8-tab" aria-selected="false">
           AS8 Interactive Visualization with Plotly
         </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="assignment9-tab" aria-selected="false">
+          AS9 Proposed Algorithm & Implementation
+        </button>
+        <button type="button" class="analysis-tab shrink-0 px-4 py-2 rounded-lg border border-zinc-800 bg-zinc-950 text-zinc-300 text-xs sm:text-sm font-bold uppercase tracking-wider transition-all" data-tab-target="assignment10-tab" aria-selected="false">
+          AS10 Experimental Results & Multi-Model Visualization
+        </button>
       </div>
     </div>
 
@@ -974,6 +980,176 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
           </div>
         </article>
       </div>
+    </section>
+
+    <section id="assignment9-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-red-500">Assignment 9</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Proposed Algorithm & Implementation</h2>
+            <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+              Build a reproducible multiclass student-outcome classifier from the 4,424-record higher-education dataset. The workflow keeps preprocessing inside each model pipeline, compares ten classifiers on a stratified holdout set, and selects models using both accuracy and macro F1.
+            </p>
+          </div>
+          <a href="as9-as10-assignment.pdf" download class="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider transition-all glow-red-sm">
+            <span>Download AS9 Draft PDF</span>
+            <span class="px-2 py-0.5 rounded bg-black/30 border border-white/20 text-[10px]">Draft</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
+        <article class="chart-card p-5 rounded-xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-red-400">01 · Validate</span>
+          <h3 class="font-bold text-white mt-2">Load and check the data</h3>
+          <p class="text-zinc-400 text-sm mt-2">Confirm the expected student-retention columns and the three-class <code class="text-red-300">Target</code>: Dropout, Enrolled, or Graduate.</p>
+        </article>
+        <article class="chart-card p-5 rounded-xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-red-400">02 · Split</span>
+          <h3 class="font-bold text-white mt-2">Preserve class balance</h3>
+          <p class="text-zinc-400 text-sm mt-2">Use an 80/20 train-test split, stratified by outcome, with a fixed random seed of 42 for reproducible evaluation.</p>
+        </article>
+        <article class="chart-card p-5 rounded-xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-red-400">03 · Prepare</span>
+          <h3 class="font-bold text-white mt-2">Preprocess within pipelines</h3>
+          <p class="text-zinc-400 text-sm mt-2">Impute numeric values with the median and scale them; impute categorical values with the mode and one-hot encode, ignoring unseen test categories.</p>
+        </article>
+        <article class="chart-card p-5 rounded-xl">
+          <span class="text-xs font-bold uppercase tracking-wider text-red-400">04 · Compare</span>
+          <h3 class="font-bold text-white mt-2">Train and evaluate models</h3>
+          <p class="text-zinc-400 text-sm mt-2">Fit ten classifiers on the training data, rank test-set accuracy and macro F1, then inspect the leading model's per-class report and confusion matrix.</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-8">
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Algorithm</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Repeatable training and selection</h3>
+          <ol class="mt-5 space-y-3 text-sm text-zinc-300 list-decimal list-inside">
+            <li>Separate the outcome label from the input features and identify numeric and categorical columns.</li>
+            <li>Split features and labels into stratified training and test partitions using seed 42.</li>
+            <li>Fit preprocessing and each classifier on training data only; transform the held-out test data through the same pipeline.</li>
+            <li>Calculate accuracy and macro-averaged F1 for every model, then rank and compare their results.</li>
+            <li>Review the best model's class-level precision, recall, F1, and confusion matrix before reporting conclusions.</li>
+          </ol>
+        </article>
+        <article class="chart-card p-6 sm:p-7 rounded-2xl">
+          <span class="text-xs font-bold uppercase tracking-widest text-red-500">Implementation</span>
+          <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Scikit-learn pipeline design</h3>
+          <pre class="code-block rounded-xl p-4 mt-5 text-xs sm:text-sm leading-relaxed"><code>numeric = Pipeline([
+    ("imputer", SimpleImputer(strategy="median")),
+    ("scaler", StandardScaler()),
+])
+categorical = Pipeline([
+    ("imputer", SimpleImputer(strategy="most_frequent")),
+    ("onehot", OneHotEncoder(handle_unknown="ignore", sparse_output=False)),
+])
+preprocessor = ColumnTransformer([
+    ("numeric", numeric, numeric_features),
+    ("categorical", categorical, categorical_features),
+])
+model = Pipeline([
+    ("preprocessor", preprocessor),
+    ("classifier", classifier),
+])</code></pre>
+          <p class="text-zinc-500 text-xs mt-3">The same preprocessing pipeline is fitted independently with each candidate classifier to prevent information leakage from the test set.</p>
+        </article>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Target</div>
+          <p class="text-white font-semibold mt-2">Three student outcomes</p>
+          <p class="text-zinc-400 text-xs mt-1">Dropout · Enrolled · Graduate</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Evaluation</div>
+          <p class="text-white font-semibold mt-2">Held-out test data</p>
+          <p class="text-zinc-400 text-xs mt-1">Stratified 20% split · random seed 42</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Model selection</div>
+          <p class="text-white font-semibold mt-2">Accuracy + macro F1</p>
+          <p class="text-zinc-400 text-xs mt-1">Report overall performance and class balance</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="assignment10-tab" class="tab-panel hidden space-y-8">
+      <div class="bg-gradient-to-b from-[#111115] to-[#0a0a0d] p-8 md:p-10 rounded-2xl border border-zinc-800">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-5">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-red-500">Assignment 10</span>
+            <h2 class="text-2xl sm:text-4xl font-black text-white mt-2">Experimental Results & Data Visualization Using Multiple Models</h2>
+            <p class="text-zinc-400 text-sm mt-3 max-w-4xl leading-relaxed">
+              Ten classifiers were evaluated on the same stratified test split. Compare accuracy with macro F1 to see both overall correctness and performance across all three outcome classes.
+            </p>
+          </div>
+          <a href="as9-as10-assignment.pdf" download class="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold uppercase tracking-wider transition-all glow-red-sm">
+            <span>Download AS10 Draft PDF</span>
+            <span class="px-2 py-0.5 rounded bg-black/30 border border-white/20 text-[10px]">Draft</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4">
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Best accuracy</div>
+          <p class="text-2xl font-black text-white mt-1">77.9%</p>
+          <p class="text-zinc-400 text-xs mt-1">Random Forest</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Best macro F1</div>
+          <p class="text-2xl font-black text-white mt-1">69.7%</p>
+          <p class="text-zinc-400 text-xs mt-1">Histogram Gradient Boosting</p>
+        </div>
+        <div class="p-5 rounded-xl bg-black/50 border border-zinc-800">
+          <div class="text-xs text-red-400 font-bold uppercase tracking-wider">Experiment size</div>
+          <p class="text-2xl font-black text-white mt-1">10 models</p>
+          <p class="text-zinc-400 text-xs mt-1">4,424 student records · three outcomes</p>
+        </div>
+      </div>
+
+      <article class="chart-card p-6 sm:p-7 rounded-2xl">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-widest text-red-500">Interactive Results</span>
+            <h3 class="text-xl sm:text-2xl font-black text-white mt-1">Accuracy and Macro F1 by Classifier</h3>
+            <p class="text-zinc-400 text-sm mt-2">Bars show held-out test scores as percentages. Hover for exact values; use the legend to focus on either metric.</p>
+          </div>
+          <a href="student_retention_10_model_results.csv" download class="shrink-0 text-xs font-semibold text-red-400 hover:text-red-300 underline underline-offset-2">Download results CSV</a>
+        </div>
+        <div id="as10ModelScores" class="plotly-chart mt-5" role="img" aria-label="Horizontal bar chart comparing accuracy and macro F1 for ten student outcome classifiers"></div>
+      </article>
+
+      <article class="chart-card p-6 sm:p-7 rounded-2xl">
+        <h3 class="text-xl font-bold text-white">Model results</h3>
+        <p class="text-zinc-400 text-sm mt-2">Random Forest leads in accuracy, while Histogram Gradient Boosting has the strongest macro F1, indicating a small trade-off between overall accuracy and balanced class performance.</p>
+        <div class="overflow-x-auto mt-5">
+          <table class="min-w-full text-left text-sm">
+            <thead class="text-zinc-400 uppercase tracking-wider border-b border-zinc-800">
+              <tr><th class="py-3 pr-4">Rank</th><th class="py-3 pr-4">Model</th><th class="py-3 pr-4">Accuracy</th><th class="py-3 pr-4">Macro F1</th></tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-800/80 text-zinc-300">
+              <tr><td class="py-3 pr-4">1</td><td class="py-3 pr-4 font-semibold text-white">Random Forest</td><td class="py-3 pr-4">77.9%</td><td class="py-3 pr-4">69.6%</td></tr>
+              <tr><td class="py-3 pr-4">2</td><td class="py-3 pr-4">Extra Trees</td><td class="py-3 pr-4">76.7%</td><td class="py-3 pr-4">68.4%</td></tr>
+              <tr><td class="py-3 pr-4">3</td><td class="py-3 pr-4">Histogram Gradient Boosting</td><td class="py-3 pr-4">76.7%</td><td class="py-3 pr-4">69.7%</td></tr>
+              <tr><td class="py-3 pr-4">4</td><td class="py-3 pr-4">Gradient Boosting</td><td class="py-3 pr-4">76.2%</td><td class="py-3 pr-4">68.5%</td></tr>
+              <tr><td class="py-3 pr-4">5</td><td class="py-3 pr-4">Support Vector Machine</td><td class="py-3 pr-4">75.9%</td><td class="py-3 pr-4">68.1%</td></tr>
+              <tr><td class="py-3 pr-4">6</td><td class="py-3 pr-4">Logistic Regression</td><td class="py-3 pr-4">75.8%</td><td class="py-3 pr-4">67.3%</td></tr>
+              <tr><td class="py-3 pr-4">7</td><td class="py-3 pr-4">Decision Tree</td><td class="py-3 pr-4">73.4%</td><td class="py-3 pr-4">65.5%</td></tr>
+              <tr><td class="py-3 pr-4">8</td><td class="py-3 pr-4">K-Nearest Neighbors</td><td class="py-3 pr-4">69.7%</td><td class="py-3 pr-4">58.7%</td></tr>
+              <tr><td class="py-3 pr-4">9</td><td class="py-3 pr-4">Naive Bayes</td><td class="py-3 pr-4">66.7%</td><td class="py-3 pr-4">57.1%</td></tr>
+              <tr><td class="py-3 pr-4">10</td><td class="py-3 pr-4">Majority Class Baseline</td><td class="py-3 pr-4">49.9%</td><td class="py-3 pr-4">22.2%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="source-note mt-5 rounded-lg px-3 py-2 text-[11px] leading-relaxed">
+          <span class="font-bold text-zinc-200">Interpretation:</span> The majority-class baseline is substantially weaker, and macro F1 keeps minority-class performance visible. The Random Forest and Histogram Gradient Boosting scores are close; selection should consider the class-level report, not accuracy alone.
+          <a href="student_retention_10_model_predictions.csv" download>Download test predictions</a>
+        </p>
+      </article>
     </section>
 
   </main>
@@ -1832,6 +2008,7 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       yaxis: { gridcolor: '#27272a', zerolinecolor: '#3f3f46', tickfont: { color: '#a1a1aa' }, titlefont: { color: '#d4d4d8' } }
     };
     let as8Rendered = false;
+    let as10Rendered = false;
 
     function as8Median(values) {
       if (!values.length) return 0;
@@ -2068,6 +2245,68 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       });
     }
 
+    function renderAssignment10Chart() {
+      if (!window.Plotly || as10Rendered) return;
+
+      const models = [
+        { name: 'Random Forest', accuracy: 77.8531, macroF1: 69.6349 },
+        { name: 'Extra Trees', accuracy: 76.7232, macroF1: 68.3947 },
+        { name: 'Histogram Gradient Boosting', accuracy: 76.7232, macroF1: 69.7130 },
+        { name: 'Gradient Boosting', accuracy: 76.1582, macroF1: 68.5153 },
+        { name: 'Support Vector Machine', accuracy: 75.9322, macroF1: 68.1408 },
+        { name: 'Logistic Regression', accuracy: 75.8192, macroF1: 67.2517 },
+        { name: 'Decision Tree', accuracy: 73.4463, macroF1: 65.5384 },
+        { name: 'K-Nearest Neighbors', accuracy: 69.7175, macroF1: 58.6962 },
+        { name: 'Naive Bayes', accuracy: 66.6667, macroF1: 57.0628 },
+        { name: 'Majority Class Baseline', accuracy: 49.9435, macroF1: 22.2055 }
+      ];
+      const layout = {
+        ...as8BaseLayout,
+        barmode: 'group',
+        bargap: 0.24,
+        margin: { ...as8BaseLayout.margin, l: 190, r: 24, t: 20, b: 55 },
+        xaxis: {
+          ...as8BaseLayout.xaxis,
+          title: 'Test-set score (%)',
+          range: [0, 100],
+          ticksuffix: '%'
+        },
+        yaxis: {
+          ...as8BaseLayout.yaxis,
+          automargin: true,
+          autorange: 'reversed'
+        },
+        legend: {
+          orientation: 'h',
+          x: 0,
+          y: 1.08,
+          font: { color: '#d4d4d8' }
+        }
+      };
+
+      Plotly.react('as10ModelScores', [
+        {
+          type: 'bar',
+          orientation: 'h',
+          name: 'Accuracy',
+          y: models.map((model) => model.name),
+          x: models.map((model) => model.accuracy),
+          marker: { color: '#ef4444' },
+          hovertemplate: '%{y}<br>Accuracy: %{x:.2f}%<extra></extra>'
+        },
+        {
+          type: 'bar',
+          orientation: 'h',
+          name: 'Macro F1',
+          y: models.map((model) => model.name),
+          x: models.map((model) => model.macroF1),
+          marker: { color: '#a1a1aa' },
+          hovertemplate: '%{y}<br>Macro F1: %{x:.2f}%<extra></extra>'
+        }
+      ], layout, as8PlotConfig);
+      as10Rendered = true;
+    }
+
     document.getElementById('as8RiskFilter')?.addEventListener('change', renderAssignment8Charts);
     document.getElementById('as8BarMetric')?.addEventListener('change', () => as8RenderBar(as8FilteredRecords()));
 
@@ -2079,10 +2318,15 @@ ORDER BY pr.attendance_shift, students DESC;</code></pre>
       tabButtons.forEach((tab) => tab.setAttribute('aria-selected', String(tab === targetButton)));
       tabPanels.forEach((panel) => panel.classList.toggle('hidden', panel.id !== targetId));
       if (targetId === 'assignment8-tab') renderAssignment8Charts();
+      if (targetId === 'assignment10-tab') renderAssignment10Chart();
       if (updateHash) history.replaceState(null, '', `#${targetId}`);
       window.setTimeout(() => {
         Object.values(Chart.instances).forEach((chart) => chart.resize());
         resizeAssignment8Charts();
+        if (targetId === 'assignment10-tab' && window.Plotly) {
+          const chart = document.getElementById('as10ModelScores');
+          if (chart) Plotly.Plots.resize(chart);
+        }
       }, 60);
     }
 
